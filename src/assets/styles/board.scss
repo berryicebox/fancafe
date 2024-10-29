@@ -1,0 +1,35 @@
+.info{
+  padding: 12px 4px;
+  //background: yellow;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  border-bottom: solid 1px var(--list-line);
+  gap : 8px;
+
+  .title{
+    display: flex;
+    gap : 8px;
+  }
+
+  .detail-info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .like-info{
+      display: flex;
+      font-weight: 700;
+      gap : 2px;
+      font-size: 0.9rem;
+
+    }
+    .author-info{
+      display: flex;
+      gap : 8px;
+      font-size: .67rem;
+      color: var(--alpha-40);
+    }
+  }
+}
+
