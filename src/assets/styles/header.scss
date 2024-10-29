@@ -48,4 +48,8 @@ ol,ul{
     display: flex;
     gap: var(--banner-gap);
     margin-top: 0.5rem;
+
+    p {
+        // background-color: #FFFFFF80;
+    }
 }
