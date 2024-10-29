@@ -1,0 +1,51 @@
+// @import url(reset.css);
+
+$logo-suit-margin: 1.6rem;
+
+*{
+    text-decoration: none;
+}
+
+ul{
+    border: 0;
+    padding: 0;
+}
+
+ol,ul{
+    list-style:none
+}
+
+.headerContainer {
+    background-color: var(--point-color);
+    color: var(--body-background-color);
+    
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0rem 5rem 0rem 5rem;
+
+    li {
+        color: var(--body-background-color);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.headerLnCContainer{
+    display: flex;
+}
+
+.headerCatecoryContainer {
+    display: flex;
+    padding-left: 1rem;
+    gap: var(--banner-gap);
+    margin-top: $logo-suit-margin;
+}
+
+.headerRegisterContainer{
+    display: flex;
+    gap: var(--banner-gap);
+    margin-top: 0.5rem;
+}
