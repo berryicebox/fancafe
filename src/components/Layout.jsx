@@ -6,7 +6,7 @@ import Router from "./Router";
 const Layout = ({ props }) =>
     (
         <div className={"layout-container"}>
-            <Header></Header>
+            {/* <Header></Header> */}
             <Router/>
             <Footer></Footer>
         </div>
