@@ -1,7 +1,7 @@
+import BoardList from "../components/BoardList";
+
 const Home = ({ props }) => {
-
-    return (<div>this is home</div>)
-
+    return (<BoardList></BoardList>)
 }
 
 export default Home

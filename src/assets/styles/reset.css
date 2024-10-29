@@ -42,3 +42,7 @@ select,input,textarea,button{
     font-size:.875rem;
     outline:none
 }
+
+
+a {color: #000000; text-decoration: none; outline: none}
+a:hover, a:active {text-decoration: none; color:#000000;}
