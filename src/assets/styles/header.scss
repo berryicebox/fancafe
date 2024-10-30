@@ -1,19 +1,6 @@
-// @import url(reset.css);
+@import url(reset.css);
 
 $logo-suit-margin: 1.6rem;
-
-*{
-    text-decoration: none;
-}
-
-ul{
-    border: 0;
-    padding: 0;
-}
-
-ol,ul{
-    list-style:none
-}
 
 .headerContainer {
     background-color: var(--point-color);
@@ -22,7 +9,14 @@ ol,ul{
     display: flex;
     justify-content: space-between;
 
-    padding: 0rem 5rem 0rem 5rem;
+    padding: 0 265px 0 265px;
+    height: 76px;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding-top: 1.3rem;
+    }
 
     li {
         color: var(--body-background-color);
@@ -47,5 +41,13 @@ ol,ul{
 .headerRegisterContainer{
     display: flex;
     gap: var(--banner-gap);
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+
+    p {
+        background-color: #cdecee1a;
+        padding: 1rem;
+        border-radius: 20px;
+        margin-bottom: 0.8rem;
+
+    }
 }
