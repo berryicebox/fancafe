@@ -1,5 +1,5 @@
 import "../assets/styles/header.scss";
-import "../assets/styles/setting.css";
+// import "../assets/styles/setting.css";
 import { Link } from "react-router-dom";
 
 const Header = ({ props }) => {
@@ -14,8 +14,8 @@ const Header = ({ props }) => {
                     </ul>
                 </div>
                 <div className="headerRegisterContainer">
-                    <p>회원가입</p>
-                    <p>로그인</p>
+                    <Link to="/join">회원가입</Link>
+                    <Link to="/login">로그인</Link>
                 </div>
             </div>
     )

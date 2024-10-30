@@ -19,7 +19,7 @@ const BoardList = ({ props }) => {
     return (
             data && data.map((data)=>{
                 return (
-                    <BoardItem key={data.id} userId={data.userId} itemTitle={data.title} />
+                    <BoardItem key={data.id} id={data.id} userId={data.userId} itemTitle={data.title} />
                 );
             })
     )
