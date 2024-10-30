@@ -7,7 +7,7 @@ const Header = ({ props }) => {
     return (
             <div className="headerContainer">
                 <div className="headerLnCContainer">
-                    <h1>FanCafe</h1>
+                <Link to="/"><h1>FanCafe</h1></Link>
                     <ul className="headerCatecoryContainer">
                         <Link to="/best"><li>인기글</li></Link>
                         <Link to="/new"><li>전체글</li></Link>
