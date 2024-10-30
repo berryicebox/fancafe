@@ -6,7 +6,7 @@ const BoardItem = (props) => {
 
     return (
         <div>
-            <Link to="/Test">
+            <Link to={"/item/"+props.id}>
                 <div className={"info"}>
                     <div className={"title"}>
                         <span> {props.itemTitle} </span>
