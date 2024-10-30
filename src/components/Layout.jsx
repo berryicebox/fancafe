@@ -8,7 +8,7 @@ const Layout = ({ props }) =>
         <div className={"layout-container"}>
             {/* <Header></Header> */}
             <Router/>
-            <Footer></Footer>
+            {/* <Footer></Footer> */}
         </div>
     )
 

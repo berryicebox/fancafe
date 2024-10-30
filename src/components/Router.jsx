@@ -9,6 +9,8 @@ import Best from "../pages/Best";
 import New from "../pages/New";
 import Join from "../pages/Join";
 import Login from "../pages/Login";
+import WriteButton from "./WriteButton";
+import PostWrite from "../pages/PostWrite";
 
 const Router = ({ props }) => {
     return (
@@ -23,9 +25,11 @@ const Router = ({ props }) => {
                     <Route path="/new" element={<New />} />
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
+                    <Route pate="/post/write" element={<PostWrite/>}/>
                 </Routes>
+                <WriteButton/>
+                <Footer/>
             </BrowserRouter>
-
         </div>
     )
 }
