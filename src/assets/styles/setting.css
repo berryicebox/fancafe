@@ -1,5 +1,5 @@
-:root{
-    --font-family: "pretendard variable", pretendard, "sf pro kr", "sf pro text", "sf pro icons","apple sd gothic neo", -apple-system, blinkmacsystemfont, roboto, "noto sans kr", "segoe ui", "malgun gothic", "apple color emoji", "segoe ui emoji", "segoe ui symbol", sans-serif;
+:root {
+    --font-family: "pretendard variable", pretendard, "sf pro kr", "sf pro text", "sf pro icons", "apple sd gothic neo", -apple-system, blinkmacsystemfont, roboto, "noto sans kr", "segoe ui", "malgun gothic", "apple color emoji", "segoe ui emoji", "segoe ui symbol", sans-serif;
     --font-family-content: "sf pro kr", "sf pro text", "sf pro icons", "apple sd gothic neo", -apple-system, blinkmacsystemfont, system-ui, roboto, "helvetica neue", "segoe ui", "noto sans kr", "malgun gothic", "apple color emoji", "segoe ui emoji", "segoe ui symbol", sans-serif;
     --body-font-color: #000000;
     --body-background-color: #FFFFFFFF;
@@ -50,8 +50,8 @@
     --mobile-gap: 10px;
 }
 
-:root{
-    --site-width: 1060px;
+:root {
+    --site-width: 1080px;
     --banner-gap: 24px;
     --banner-mobile-gap: 16px
 }
