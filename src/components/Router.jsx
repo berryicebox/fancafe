@@ -25,7 +25,7 @@ const Router = ({ props }) => {
                     <Route path="/new" element={<New />} />
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
-                    <Route pate="/post/write" element={<PostWrite/>}/>
+                    <Route path="/post/write" element={<PostWrite/>}/>
                 </Routes>
                 <WriteButton/>
                 <Footer/>
