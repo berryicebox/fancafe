@@ -14,12 +14,10 @@ import JoinSuccess from "../pages/JoinSuccess";
 import "../assets/styles/router.scss";
 
 const Router = (props) => {
-    console.log(props);
     return (
         <BrowserRouter>
-
             <div className="outer-container">
-                <Header/>
+                <Header reload={props.reload} setReload={props.setReload}/>
                 <div className="inner-container">
                     <Routes>
                         <Route path="/" element={<Home/>}/>
@@ -35,7 +33,7 @@ const Router = (props) => {
                     </Routes>
                 </div>
 
-                <WriteButton/>
+                {props.isAuth ? <WriteButton/> : null}
                 <Footer/>
 
             </div>

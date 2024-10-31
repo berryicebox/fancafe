@@ -14,6 +14,7 @@ const Header = ({props}) => {
     })
     const handleLogout = () => {
         localStorage.removeItem('accessToken');
+        props.setReload(!(props.reload));
         setIsAuth(false)
     }
 
