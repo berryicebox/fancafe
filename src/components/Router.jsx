@@ -11,8 +11,10 @@ import Join from "../pages/Join";
 import Login from "../pages/Login";
 import WriteButton from "./WriteButton";
 import PostWrite from "../pages/PostWrite";
+import JoinSuccess from "../pages/JoinSuccess";
 
-const Router = ({ props }) => {
+const Router = ( props ) => {
+    console.log(props);
     return (
         <div>
             <BrowserRouter>
@@ -24,8 +26,9 @@ const Router = ({ props }) => {
                     <Route path="/best" element={<Best />} />
                     <Route path="/new" element={<New />} />
                     <Route path="/join" element={<Join />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route pate="/post/write" element={<PostWrite/>}/>
+                    <Route path="/login" element={<Login reload = {props.reload} setReload = {props.setReload} />} />
+                    <Route path="/post/write" element={<PostWrite/>}/>
+                    <Route path="/join/success" element={<JoinSuccess />}/>
                 </Routes>
                 <WriteButton/>
                 <Footer/>

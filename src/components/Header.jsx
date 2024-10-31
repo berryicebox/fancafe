@@ -1,8 +1,21 @@
 import "../assets/styles/header.scss";
 // import "../assets/styles/setting.css";
 import { Link } from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const Header = ({ props }) => {
+
+    const [isAuth, setIsAuth] = useState(false)
+
+    useEffect(() => {
+        if (localStorage.getItem("accessToken")) {
+            setIsAuth(true)
+        }
+    })
+    const handleLogout = () =>{
+        localStorage.removeItem('accessToken');
+        setIsAuth(false)
+    }
 
     return (
             <div className="headerContainer">
@@ -14,8 +27,11 @@ const Header = ({ props }) => {
                     </ul>
                 </div>
                 <div className="headerRegisterContainer">
-                    <Link to="/join">회원가입</Link>
-                    <Link to="/login">로그인</Link>
+                    {isAuth ?
+                        <Link onClick={handleLogout}>로그아웃</Link>
+                        :<><Link to="/join">회원가입</Link>
+                         <Link to="/login">로그인</Link></>}
+
                 </div>
             </div>
     )

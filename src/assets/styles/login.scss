@@ -36,6 +36,12 @@
 
       .main-button{
         background: var(--point-color);
+        color: var(--header-font-color);
+      }
+
+      .warning{
+        color: var(--warning-color);
+        font-size: .8rem;
       }
 
 
