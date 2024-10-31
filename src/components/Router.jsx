@@ -29,6 +29,7 @@ const Router = ( props ) => {
                     <Route path="/login" element={<Login reload = {props.reload} setReload = {props.setReload} />} />
                     <Route path="/post/write" element={<PostWrite/>}/>
                     <Route path="/join/success" element={<JoinSuccess />}/>
+                    <Route path="/login" element={<Login />} />
                 </Routes>
                 <WriteButton/>
                 <Footer/>
