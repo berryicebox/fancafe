@@ -1,7 +1,7 @@
 import WriteEditor from "../components/WriteEditor"
 
-export default function PostWrite(){
-    return(
+export default function PostWrite() {
+    return (
         <div>
             <WriteEditor/>
         </div>

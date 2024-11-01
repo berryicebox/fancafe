@@ -3,7 +3,7 @@ import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
-const Join = ({ props }) => {
+const Join = ({props}) => {
     const navigate = useNavigate();
 
     const [userId, setUserId] = useState("");
@@ -25,18 +25,18 @@ const Join = ({ props }) => {
     const [nameAlreadyExist, setNameAlreadyExist] = useState(false);
 
 
-    const handleJoin = async(event) => {
+    const handleJoin = async (event) => {
         event.preventDefault();
         console.log("----------Join----------");
 
 
-        axios( {
+        axios({
             method: "POST",
-            url:"http://localhost:8080/auth/signup",
+            url: "http://localhost:8080/auth/signup",
             data: {
                 "username": userId,
                 "password": password,
-                "nickname" : name,
+                "nickname": name,
                 "mail": email,
             },
         })
@@ -46,7 +46,7 @@ const Join = ({ props }) => {
     }
 
 
-    const handleError = (error)=> {
+    const handleError = (error) => {
         console.log(error);
         if (error.message === "Username already exists") {
             setIdAlreadyExist(true);
@@ -66,7 +66,7 @@ const Join = ({ props }) => {
         }
     }
 
-    const handleResponse = (response)=> {
+    const handleResponse = (response) => {
         console.log(response);
         if (response.message === "SignUp success") {
             navigate("/join/success");
@@ -77,59 +77,59 @@ const Join = ({ props }) => {
     const handleLogin = (event) => {
         event.preventDefault();
         const isInvalid = pwdInvalid || idInvalid || emailInvalid || pwdDiff;
-        if (!isInvalid){
+        if (!isInvalid) {
             console.log("회원가입");
             setInvalidRequest(false);
-        }else{
+        } else {
             console.log("회원가입 불가");
             setInvalidRequest(true);
         }
     }
 
-    const passwordEqualChecker = (password2)=>{
+    const passwordEqualChecker = (password2) => {
         if (password === password2) {
             console.log("비밀번호 일치");
             setPwdDiff(false);
-        }else{
+        } else {
             console.log("비밀번호 불일치");
             setPwdDiff(true);
         }
     }
 
-    const passwordValidChecker = (password)=>{
+    const passwordValidChecker = (password) => {
         let regPass = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$/
         if (regPass.test(password)) {
             console.log("비밀번호 유효");
             setPassword(password);
             setPwdInvalid(false);
 
-        }else{
+        } else {
             console.log("비밀번호 무효");
             setPwdInvalid(true);
         }
     }
 
-    const emailChecker = (email)=>{
+    const emailChecker = (email) => {
         const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
         if (regEmail.test(email)) {
             console.log("이메일 유효");
             setEmailInvalid(false);
             setEmail(email)
 
-        }else{
+        } else {
             console.log("이메일 무효");
             setEmailInvalid(true);
         }
     }
 
-    const userIdChecker = (userId)=>{
+    const userIdChecker = (userId) => {
         const regId = /^[a-z]+[a-z0-9]{5,19}$/g;
         if (regId.test(userId)) {
             setIdInvalid(false);
             console.log("아이디 유효");
             setUserId(userId)
 
-        }else{
+        } else {
             console.log("아이디 무효");
             setIdInvalid(true);
         }
@@ -155,8 +155,6 @@ const Join = ({ props }) => {
                     {pwdInvalid ? <span className={"warning"}> 영문/숫자를 조합하여 8~20자 이내로 작성해주세요. </span> : ""}
 
 
-
-
                     <label htmlFor="password2">비밀번호 확인</label>
                     <input
                         onChange={e => passwordEqualChecker(e.target.value)}
@@ -176,9 +174,9 @@ const Join = ({ props }) => {
                         type="text" name="name" id="name"/>
                     {nameAlreadyExist ? <span className={"warning"}> 이미 존재하는 닉네임입니다. </span> : ""}
 
-                    {invalidRequest ?<span className={"warning"}> 입력을 확인해주세요. </span> : ""}
+                    {invalidRequest ? <span className={"warning"}> 입력을 확인해주세요. </span> : ""}
 
-                   <button className={"main-button"} onClick={handleJoin}>회원가입</button>
+                    <button className={"main-button"} onClick={handleJoin}>회원가입</button>
 
                     <Link to="/login">
                         <button>로그인</button>

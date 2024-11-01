@@ -33,8 +33,9 @@ const Header = ({props}) => {
                     </ul>
                 </div>
                 <div className="headerRegisterContainer">
-                    {isAuth ?
-                        <Link onClick={handleLogout}>로그아웃</Link>
+                    {isAuth ? <>
+                            <Link to="/mypage">마이페이지</Link>
+                            <Link onClick={handleLogout}>로그아웃</Link></>
                         : <><Link to="/join">회원가입</Link>
                             <Link to="/login">로그인</Link></>}
 

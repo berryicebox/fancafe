@@ -12,6 +12,7 @@ import WriteButton from "./WriteButton";
 import PostWrite from "../pages/PostWrite";
 import JoinSuccess from "../pages/JoinSuccess";
 import "../assets/styles/router.scss";
+import MyPage from "../pages/MyPage";
 
 const Router = (props) => {
     return (
@@ -20,7 +21,7 @@ const Router = (props) => {
                 <Header reload={props.reload} setReload={props.setReload}/>
                 <div className="inner-container">
                     <Routes>
-                        <Route path="/" element={<Home/>}/>
+                        <Route path="/" element={<Home isAuth={props.isAuth}/>}/>
                         <Route path="/item/:itemId" element={<ItemDetail/>}/>
                         <Route path="/test" element={<Test/>}/> {/*라우터 사용 예시*/}
                         <Route path="/best" element={<Best/>}/>
@@ -30,6 +31,7 @@ const Router = (props) => {
                         <Route path="/post/write" element={<PostWrite/>}/>
                         <Route path="/join/success" element={<JoinSuccess/>}/>
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/mypage" element={<MyPage/>}/>
                     </Routes>
                 </div>
 

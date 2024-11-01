@@ -1,63 +1,98 @@
 import axios from "axios";
 
-    const instance = axios.create({
-        baseURL: "http://localhost:8080",
-    });
 
-    // 요청 인터셉터
-    instance.interceptors.request.use(function (config) {
+const instance = axios.create({
+    baseURL: "http://localhost:8080",
+});
+let isInvalidToken = false;
 
-        // 스토리지에서 토큰을 가져온다.
+// 요청 인터셉터
+instance.interceptors.request.use(function (config) {
+
+    console.log(isInvalidToken);
+    // 스토리지에서 토큰을 가져온다.
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    // 토큰이 있으면 요청 헤더에 추가한다.
+    if (accessToken && !isInvalidToken) {
+        config.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+    if (accessToken && refreshToken && isInvalidToken) {
+        config.data = {
+            "accessToken": accessToken,
+            "refreshToken": refreshToken
+        }
+    }
+
+    console.log("엑시오스 세팅값");
+    console.log(config);
+    return config;
+}, function (error) {
+    console.log("--요청 실패--");
+    console.log(error);
+});
+
+
+// 응답 인터셉터
+instance.interceptors.response.use(async function (response) {
+
+    console.log("요청성공");
+
+    return response;
+}, async function (error) {
+
+    const dataResponse = (data) => {
+        console.log("토큰 재발급 성공");
+        localStorage.setItem("accessToken", data.accessToken);
+        isInvalidToken = false;
+        // todo isInvalidToken 이 false 인 경우에도 true 인것 처럼 동작하고 있어서 처리가 안됨
+    }
+
+    const errorResponse = (error) => {
+        console.log("error response")
+        console.log(error);
+    }
+
+    console.log(error);
+    const {config, response: {status, data}} = error;
+
+    if (status === 401 && data.error === "InvalidTokenException") {
+        isInvalidToken = true;
+
+        console.log("--토큰 이상함--");
+    }
+
+    if (status === 401 && data.error === "Unauthorized") {
         const accessToken = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
 
-        // 토큰이 있으면 요청 헤더에 추가한다.
-        if (accessToken) {
-            config.headers['Authorization'] = `Bearer ${accessToken}`;
+        isInvalidToken = true;
+
+        try {
+            console.log("--토큰 만료--");
+
+            const response = await instance({
+                method: "POST",
+                url: "/auth/token",
+                data: {refreshToken} // refreshToken을 요청에 포함시킵니다.
+            });
+
+            dataResponse(response.data);
+            // 원래 요청을 재전송합니다.
+            config.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
+            return instance(config); // 재전송
+
+        } catch (e) {
+            console.log("토큰 재발급 실패");
         }
-        // Refresh 토큰을 보낼 경우 사용하고자 하는 커스텀 인증 헤더를 사용하면 된다.
-        if (refreshToken) {
-            config.headers['x-refresh-token'] = refreshToken;
-        }
+    } else {
+        isInvalidToken = true;
 
-        return config;
-    }, function (error) {
-        // 요청 오류 처리
-        return Promise.reject(error);
-    });
+        console.log("401 외 다른 에러");
+    }
 
-// 응답 인터셉터
-    instance.interceptors.response.use(async function (response) {
-        console.log("요청성공");
-
-        return response;
-    }, async function (error) {
-        console.log(error);
-        const {config, response: {status , data}} = error;
-
-        if (status === 401 && data.message === "InvalidTokenException") {
-            // 토큰이 없거나 잘못되었을 경우
-            // logout();
-        }
-        if (status === 401 && data.message === "TokenExpired") {
-            try {
-                const tokenRefreshResult = await instance.post('/refresh-token');
-                if (tokenRefreshResult.status === 200) {
-                    const { accessToken, refreshToken } = tokenRefreshResult.data
-                    // 새로 발급받은 토큰을 스토리지에 저장
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('refreshToken', refreshToken);
-                    // 토큰 갱신 성공. API 재요청
-                    return instance(config)
-                } else {
-                    // logout();
-                }
-            } catch (e) {
-                // logout();
-            }
-        }
-
-        return Promise.reject(error);
-    });
+    // return Promise.reject(error);
+});
 
 export default instance;
