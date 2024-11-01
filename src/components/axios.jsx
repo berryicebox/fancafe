@@ -33,66 +33,55 @@ instance.interceptors.request.use(function (config) {
     console.log(error);
 });
 
+let isTokenRefreshing = false;
+let refreshSubscribers = [];
 
-// 응답 인터셉터
-instance.interceptors.response.use(async function (response) {
+function onTokenRefreshed(newToken) {
+    refreshSubscribers.forEach(callback => callback(newToken));
+    refreshSubscribers = [];
+}
 
-    console.log("요청성공");
+function addRefreshSubscriber(callback) {
+    refreshSubscribers.push(callback);
+}
 
-    return response;
-}, async function (error) {
+instance.interceptors.response.use(
+    response => response,
+    async error => {
+        const {config, response} = error;
+        if (response.status === 401 && !config._retry) {
+            config._retry = true;
 
-    const dataResponse = (data) => {
-        console.log("토큰 재발급 성공");
-        localStorage.setItem("accessToken", data.accessToken);
-        isInvalidToken = false;
-        // todo isInvalidToken 이 false 인 경우에도 true 인것 처럼 동작하고 있어서 처리가 안됨
-    }
+            if (!isTokenRefreshing) {
+                isTokenRefreshing = true;
+                isInvalidToken = true;
 
-    const errorResponse = (error) => {
-        console.log("error response")
-        console.log(error);
-    }
+                try {
+                    const response = await axios.post('/auth/token', {
+                        refreshToken: localStorage.getItem('refreshToken')
+                    });
+                    const newAccessToken = response.data.accessToken;
+                    localStorage.setItem("accessToken", newAccessToken);
+                    isInvalidToken = false;
+                    isTokenRefreshing = false;
+                    onTokenRefreshed(newAccessToken);
+                } catch (err) {
+                    console.log("토큰 재발급 실패");
+                    isTokenRefreshing = false;
+                    return Promise.reject(error);
+                }
+            }
 
-    console.log(error);
-    const {config, response: {status, data}} = error;
-
-    if (status === 401 && data.error === "InvalidTokenException") {
-        isInvalidToken = true;
-
-        console.log("--토큰 이상함--");
-    }
-
-    if (status === 401 && data.error === "Unauthorized") {
-        const accessToken = localStorage.getItem('accessToken');
-        const refreshToken = localStorage.getItem('refreshToken');
-
-        isInvalidToken = true;
-
-        try {
-            console.log("--토큰 만료--");
-
-            const response = await instance({
-                method: "POST",
-                url: "/auth/token",
-                data: {refreshToken} // refreshToken을 요청에 포함시킵니다.
+            return new Promise((resolve) => {
+                addRefreshSubscriber(newToken => {
+                    config.headers['Authorization'] = `Bearer ${newToken}`;
+                    resolve(instance(config));
+                });
             });
-
-            dataResponse(response.data);
-            // 원래 요청을 재전송합니다.
-            config.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
-            return instance(config); // 재전송
-
-        } catch (e) {
-            console.log("토큰 재발급 실패");
         }
-    } else {
-        isInvalidToken = true;
-
-        console.log("401 외 다른 에러");
+        return Promise.reject(error);
     }
+);
 
-    // return Promise.reject(error);
-});
 
 export default instance;
