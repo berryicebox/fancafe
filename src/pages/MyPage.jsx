@@ -14,6 +14,8 @@ function MyPage(props) {
     const [nameAlreadyExist, setNameAlreadyExist] = useState(false);
     const [emailAlreadyExist, setEmailAlreadyExist] = useState(false);
 
+    const [isModified, setIsModified] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await instance({
@@ -31,15 +33,47 @@ function MyPage(props) {
 
     const editUser = (e) => {
         e.preventDefault();
-        console.log({email, name});
+
+        if (emailInvalid) {
+            setInvalidRequest(true)
+        } else {
+            setInvalidRequest(false)
+            instance({
+                url: "/auth/mypage",
+                method: "POST",
+                data: {
+                    mail: email,
+                    nickname: name
+                },
+            }).then(response => {
+                setIsModified(true);
+            })
+                .catch(error => errorHandeler(error.response.data.error))
+
+        }
+    }
+    const errorHandeler = (error) => {
+        console.log(error);
+        // setInvalidRequest(true)
+        if (error === "mail already exists") {
+            setEmailAlreadyExist(true);
+            setNameAlreadyExist(false);
+
+        }
+        if (error === "Nickname already exists") {
+            setNameAlreadyExist(true);
+            setEmailAlreadyExist(false);
+
+        }
     }
 
     const emailChecker = (email) => {
         const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+        setEmail(email)
+
         if (regEmail.test(email)) {
             console.log("이메일 유효");
             setEmailInvalid(false);
-            setEmail(email)
 
         } else {
             console.log("이메일 무효");
@@ -47,6 +81,13 @@ function MyPage(props) {
         }
     }
 
+    const warningCleaner = () => {
+        setIsModified(false);
+        setNameAlreadyExist(false);
+        setEmailAlreadyExist(false);
+
+
+    }
 
     return (
         <div className="container">
@@ -59,6 +100,7 @@ function MyPage(props) {
                     <hr/>
                     <label htmlFor="email">이메일</label>
                     <input
+                        onClick={warningCleaner}
                         onChange={e => emailChecker(e.target.value)}
                         type="text" name="email" id="email" value={email}/>
                     {emailInvalid ? <span className={"warning"}> 이메일이 적합 하지 않습니다</span> : ""}
@@ -66,12 +108,13 @@ function MyPage(props) {
 
                     <label htmlFor="name">닉네임</label>
                     <input
+                        onClick={warningCleaner}
                         onChange={e => setName(e.target.value)}
                         type="text" name="name" id="name" value={name}/>
                     {nameAlreadyExist ? <span className={"warning"}> 이미 존재하는 닉네임입니다. </span> : ""}
 
                     {invalidRequest ? <span className={"warning"}> 입력을 확인해주세요. </span> : ""}
-
+                    {isModified ? <span>수정이 완료되었습니다.</span> : ""}
                     <button onClick={editUser}>저장</button>
                 </form>
             </div>
