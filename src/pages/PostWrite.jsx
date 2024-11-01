@@ -1,37 +1,32 @@
 import { useCallback, useRef, useState } from "react"
 import WriteEditor from "../components/WriteEditor"
-// import { axios } from '../components/axios'
-import axios from "axios";
 import '../assets/styles/postWrite.scss'
 import { Link } from "react-router-dom";
+import instance from "../components/axios";
 
 
 export default function PostWrite(){
+    // 작성 내용(contents), 제목(title), 카테고리(category) 저장
     const editorRef = useRef(null);
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
   
+    // 카테고리 선택할 때 저장
     function onSelectCategory(e){
-      console.log(e.target.value); // 테스트 코드
+    //   console.log(e.target.value); // 테스트 코드
       setCategory(e.target.value);
     }
 
-    /* const onClickEnrollBtn = useCallback(() => {
-        // editorRef.curret === null일 때 아무것도 반환하지 않음
-        if (!editorRef.current) return;
-        // 마크다운을 받는 Ref
-        const markdown = editorRef.current.getInstance().getMarkdown();
-        console.log('markdown: ', markdown);
-    }, []); */ // 테스트 코드
-
+    // 제출할 때 db에 post
     const onClickEnrollBtn = useCallback(async () => {
         if (!editorRef.current) return;
 
-        const markdown = editorRef.current.getInstance().getMarkdown();
+        const markdown = editorRef.current.getInstance().getMarkdown(); // contents 가져오기
         const token = localStorage.getItem('accessToken'); // 토큰 가져오기
 
         // console.log('token: ', token); // 테스트 코드
 
+        // 보낼 데이터
         const data = {
             "title" : title, 
             "contents" : markdown, 
@@ -40,9 +35,10 @@ export default function PostWrite(){
 
         console.log('sending data: ', data); // 테스트 코드
 
-        axios({
+        // axios + refresh 토큰 필요 유무 확인 메서드
+        instance({
             method: "POST",
-            url: "http://localhost:8080/post/write",
+            url: "/post/write",
             headers: {
                 Authorization: `Bearer ${token}` // JWT 포함
             },
