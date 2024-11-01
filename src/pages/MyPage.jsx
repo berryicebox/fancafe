@@ -7,6 +7,7 @@ import instance from "../components/axios";
 function MyPage(props) {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
+    const [nameInvalid, setNameInvalid] = useState(false);
 
     const [emailInvalid, setEmailInvalid] = useState(false);
     const [invalidRequest, setInvalidRequest] = useState(false);
@@ -80,6 +81,20 @@ function MyPage(props) {
             setEmailInvalid(true);
         }
     }
+    const nameChecker = (name) => {
+        const regName = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
+        setName(name)
+
+        if (regName.test(name)) {
+            setNameInvalid(false);
+            console.log("닉네임 유효");
+        } else {
+            console.log("닉네임 무효");
+            setNameInvalid(true);
+        }
+
+    }
+
 
     const warningCleaner = () => {
         setIsModified(false);
@@ -109,9 +124,11 @@ function MyPage(props) {
                     <label htmlFor="name">닉네임</label>
                     <input
                         onClick={warningCleaner}
-                        onChange={e => setName(e.target.value)}
+                        onChange={e => nameChecker(e.target.value)}
                         type="text" name="name" id="name" value={name}/>
                     {nameAlreadyExist ? <span className={"warning"}> 이미 존재하는 닉네임입니다. </span> : ""}
+                    {nameInvalid ? <span className={"warning"}> 닉네임이 적합 하지 않습니다</span> : ""}
+
 
                     {invalidRequest ? <span className={"warning"}> 입력을 확인해주세요. </span> : ""}
                     {isModified ? <span>수정이 완료되었습니다.</span> : ""}

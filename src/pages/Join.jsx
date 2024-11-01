@@ -17,6 +17,7 @@ const Join = ({props}) => {
 
     const [idInvalid, setIdInvalid] = useState(false);
     const [emailInvalid, setEmailInvalid] = useState(false);
+    const [nameInvalid, setNameInvalid] = useState(false)
     const [invalidRequest, setInvalidRequest] = useState(false);
 
 
@@ -135,6 +136,18 @@ const Join = ({props}) => {
         }
     }
 
+    const nameChecker = (name) => {
+        const regName = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
+        if (regName.test(name)) {
+            setNameInvalid(false);
+            console.log("닉네임 유효");
+            setName(name)
+        } else {
+            console.log("닉네임 무효");
+            setNameInvalid(true);
+        }
+
+    }
 
     return (
         <div className={"container"}>
@@ -170,8 +183,9 @@ const Join = ({props}) => {
 
                     <label htmlFor="name">닉네임</label>
                     <input
-                        onChange={e => setName(e.target.value)}
+                        onChange={e => nameChecker(e.target.value)}
                         type="text" name="name" id="name"/>
+                    {nameInvalid ? <span className={"warning"}> 닉네임이 적합 하지 않습니다</span> : ""}
                     {nameAlreadyExist ? <span className={"warning"}> 이미 존재하는 닉네임입니다. </span> : ""}
 
                     {invalidRequest ? <span className={"warning"}> 입력을 확인해주세요. </span> : ""}
