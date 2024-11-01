@@ -1,19 +1,22 @@
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/toastui-editor.css';
+import { forwardRef } from 'react';
 
-const WriteEditor = () => {
+const WriteEditor = forwardRef((props, ref) => {
 
   return (
     <>
         <Editor
-            initalValue="작성하세요"
+            ref={ref}
+            initialValue=""
             previewStyle="vertical"
             height="600px"
             initialEditType="wysiwyg"
             useCommandShortcut={false}
+            placeholder="글을 작성해주세요."
         />
     </>
   );
-};
+});
 
 export default WriteEditor;
