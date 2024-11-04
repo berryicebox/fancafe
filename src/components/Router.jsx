@@ -13,6 +13,7 @@ import PostWrite from "../pages/PostWrite";
 import JoinSuccess from "../pages/JoinSuccess";
 import "../assets/styles/router.scss";
 import MyPage from "../pages/MyPage";
+import ContentsViewer from "./ContentsViewer";
 
 const Router = (props) => {
     return (
@@ -32,6 +33,7 @@ const Router = (props) => {
                         <Route path="/join/success" element={<JoinSuccess/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/mypage" element={<MyPage/>}/>
+                        <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
                     </Routes>
                 </div>
 
