@@ -66,7 +66,10 @@ export default function PostWrite(){
                     onChange={(e) => setTitle(e.target.value)}
                 />  
                 <WriteEditor ref={editorRef}/>
-                <Link to="/"><button onClick={onClickEnrollBtn}>제출</button></Link>
+                <Link to="/">
+                    <button onClick={onClickEnrollBtn}
+                        className="submitButton">등록</button>
+                </Link>
         </div>
     )
 }
