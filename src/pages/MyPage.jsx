@@ -3,8 +3,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "../assets/styles/mypage.scss"
 import {useEffect, useState} from "react";
 import instance from "../components/axios";
+import {useNavigate} from "react-router-dom";
 
 function MyPage(props) {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [nameInvalid, setNameInvalid] = useState(false);
@@ -26,6 +29,7 @@ function MyPage(props) {
             if (response && response.data) {
                 setName(response.data.nickname);
                 setEmail(response.data.mail);
+                setUsername(response.data.username);
             }
         }
         fetchData()
@@ -104,6 +108,42 @@ function MyPage(props) {
 
     }
 
+
+    function deleteUser() {
+        instance({
+            method: "DELETE",
+            url: "/auth/delete",
+
+        }).then(response => {
+            localStorage.clear();
+            navigate("/");
+
+        })
+
+    }
+
+    const confirmUser = (e) => {
+        e.preventDefault();
+
+        // eslint-disable-next-line no-restricted-globals
+        const result = confirm("정말로 탈퇴하실건가요?");
+        if (result) {
+            // eslint-disable-next-line no-restricted-globals
+            const resultAgain = confirm("정말로 정말로 탈퇴하실건가요?");
+
+            if (resultAgain) {
+                console.log("회원탈퇴")
+
+                deleteUser();
+            } else {
+                console.log("탈퇴안함")
+            }
+        } else {
+            console.log("탈퇴안함")
+        }
+    }
+
+
     return (
         <div className="container">
             <div className="box">
@@ -111,7 +151,7 @@ function MyPage(props) {
                 <FontAwesomeIcon className={"icon"} icon={faUserPen}/>
                 <form action="post">
                     <span>아이디</span>
-                    <span>testuser</span>
+                    <span>{username}</span>
                     <hr/>
                     <label htmlFor="email">이메일</label>
                     <input
@@ -133,6 +173,10 @@ function MyPage(props) {
                     {invalidRequest ? <span className={"warning"}> 입력을 확인해주세요. </span> : ""}
                     {isModified ? <span>수정이 완료되었습니다.</span> : ""}
                     <button onClick={editUser}>저장</button>
+
+
+                    <button onClick={confirmUser} className="warning-btn">회원탈퇴</button>
+
                 </form>
             </div>
 
