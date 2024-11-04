@@ -68,6 +68,8 @@ instance.interceptors.response.use(
                 } catch (err) {
                     console.log("토큰 재발급 실패");
                     isTokenRefreshing = false;
+                    window.location.href = "/login";
+
                     return Promise.reject(error);
                 }
             }
