@@ -46,6 +46,7 @@ const BoardList = (props) => {
             {props.isAuth ? <WriteButton/> : null}
             {data && <Pagination
                 totalPost={data.totalCount}
+                currentPage={currentPage}
                 handlePageChange={handlePageChange}/>
             }
         </>
