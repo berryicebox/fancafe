@@ -1,16 +1,17 @@
 import "../assets/styles/board.scss"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faFaceGrinTears} from "@fortawesome/free-regular-svg-icons";
 import {Link} from "react-router-dom";
+
 const BoardItem = (props) => {
 
     return (
         <div>
-            <Link to={"/item/"+props.id}>
+            <Link to={`/${props.category}/${props.id}`}>
                 <div className={"info"}>
                     <div className={"title"}>
                         <span> {props.itemTitle} </span>
-                        <FontAwesomeIcon icon={faCommentDots} />
+                        <FontAwesomeIcon icon={faCommentDots}/>
                         <span>5</span>
                     </div>
 
@@ -28,9 +29,9 @@ const BoardItem = (props) => {
                             <span>7시간전</span>
                         </div>
 
-                        </div>
-
                     </div>
+
+                </div>
             </Link>
         </div>
     )
