@@ -24,10 +24,9 @@ const BoardList = (props) => {
             setData(response.data);
             setLoading(false);
         }).catch((error) => {
-            setError(true)
+            setError(true);
         })
     }, [currentPage])
-
 
     if (loading) {
         return <div>loading</div>
