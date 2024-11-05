@@ -1,7 +1,7 @@
 import "../assets/styles/pagination.scss";
 import {useEffect, useState} from "react";
 
-const Pagination = ({totalPost, handlePageChange}) => {
+const Pagination = ({currentPage, totalPost, handlePageChange}) => {
 
 
     const [page, setPage] = useState(1); // 현재 페이지 수
@@ -20,40 +20,28 @@ const Pagination = ({totalPost, handlePageChange}) => {
     }, []);
 
     return (
-
         <>
-
-            {console.log((totalPost / 10))}
-
-
+            {console.log(currentPage)}
             <div>
                 <div className="pagination">
                     <button disabled={startPage === 1} onClick={() => setPage(startPage - 1)}>
                         {"<"}
                     </button>
-                    {
-                        console.log(endPage)
-                    }
+
                     {Array(btnRange).fill(startPage).map((_, i) => {
-
-
                         return (
-
                             ((totalPost / 10) >= (startPage + i)) &&
                             <button
-                                className="numBtn"
+                                className={(startPage + i === currentPage) ? "numBtn selected" : "numBtn"}
+
                                 key={i}
                                 onClick={() => handlePageChange(startPage + i)}>
                                 {startPage + i}
 
-                                {console.log((startPage + i))}
-
-                                {console.log(((totalPost / 10) < (startPage + i)))}
                             </button>
 
                         );
                     })}
-                    {console.log(totalSet)}
 
                     <button disabled={totalPost / 10 <= endPage} onClick={() => setPage(endPage + 1)}>
                         {">"}
