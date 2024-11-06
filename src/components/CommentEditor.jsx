@@ -1,6 +1,9 @@
 import instance from "./axios";
 import {useEffect, useRef, useState} from "react";
 import {useParams} from "react-router-dom";
+import "../assets/styles/commentEditor.scss";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faImage} from "@fortawesome/free-solid-svg-icons";
 
 const CommentEditor = (props) => {
 
@@ -84,10 +87,15 @@ const CommentEditor = (props) => {
     }
 
     return (
-        <form onSubmit={(e) => onSubmitHandler(e)}>
+        <form className="input-comment" onSubmit={(e) => onSubmitHandler(e)}>
+
             <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-            <input ref={inputImageRef} onChange={(e) => ImgUploadHandler(e)} type="file" accept="image/*"/>
-            <button>등록</button>
+            <div className="btn-section">
+                <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon icon={faImage}/></label>
+                <input id="input-file" ref={inputImageRef} onChange={(e) => ImgUploadHandler(e)} type="file"
+                       accept="image/*"/>
+                <button className="submit-button">등록</button>
+            </div>
         </form>
     )
 }
