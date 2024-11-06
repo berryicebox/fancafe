@@ -12,7 +12,7 @@ const CommentEditor = (props) => {
 
     useEffect(() => {
         if (props.comment) {
-            console.log(props.comment.content);
+            // console.log(props.comment.content);
             setNewComment(props.comment.content);
         }
     }, [])
@@ -32,7 +32,10 @@ const CommentEditor = (props) => {
         }
 
         if (props.isReply) {
-            blob = new Blob([JSON.stringify({content: newComment}), JSON.stringify({parent: props.parentId})], {type: 'application/json'})
+            blob = new Blob([JSON.stringify({
+                content: newComment,
+                parentId: props.parentId
+            })], {type: 'application/json'})
         }
 
         formData.append("commentData", blob);

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import CommentEditor from "./CommentEditor";
 import instance from "./axios";
 
-const Comment = ({comment, commentSummited, setCommentSummited}) => {
+const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => {
     let url;
     const [edit, setEdit] = useState(false)
     const [reply, setReply] = useState(false)
@@ -35,10 +35,16 @@ const Comment = ({comment, commentSummited, setCommentSummited}) => {
         })
     }
 
+
     return (<>
 
-            <div className="comment">
+            <div className={comment.parent ? "comment child" : "comment"}>
                 <span> {comment.id} </span>
+                {console.log(parentList)}
+                {console.log(comment.parent?.id in parentList)}
+
+                {!parentList.has(comment.parent?.id) ? <span> {comment.parent?.id} </span> : null}
+
                 <span> {comment.nickname} </span>
                 {comment.imageUrl && <img className="commentImg" src={url}/>}
                 <span> {comment.content} </span>
