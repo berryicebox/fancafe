@@ -36,6 +36,48 @@ $logo-suit-margin: 1.6rem;
     }
   }
 
+  .searchBar {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      height: 2.5rem;
+      width: 340px;
+      //color: var(--body-background-color);
+      font-size: 1.3rem;
+      padding-left: 30px;
+      background: rgb(0 0 0 / 10%) url(../img/search.svg) 6px center no-repeat;
+
+      border: 1px solid var(--point-shadow-color, rgb(0, 0, 0));
+      border-radius: 10px/10px;
+
+
+    }
+
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.50);
+      opacity: 1; /* Firefox */
+    }
+
+
+    input:focus {
+      padding-left: 10px;
+
+
+      background: white;
+      border: 1px solid var(--point-shadow-color, rgb(0, 0, 0));
+      border-radius: 10px/10px;
+    }
+
+
+    //
+    //button {
+    //  width: 50px;
+    //  height: 2.5rem;
+    //
+    //}
+  }
+
   .headerLnCContainer {
     display: flex;
   }

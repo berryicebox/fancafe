@@ -1,11 +1,13 @@
 import "../assets/styles/header.scss";
 // import "../assets/styles/setting.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
-const Header = ({props}) => {
+const Header = (props) => {
 
     const [isAuth, setIsAuth] = useState(false)
+    const [keyword, setKeyword] = useState()
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem("accessToken")) {
@@ -16,6 +18,16 @@ const Header = ({props}) => {
         localStorage.removeItem('accessToken');
         props.setReload(!(props.reload));
         setIsAuth(false)
+    }
+
+    const searchHandler = (e) => {
+        e.preventDefault()
+        console.log("search");
+        // props.setReload(!(props.reload));
+        navigate("/search?keyword=" + keyword)
+        props.setReload(!(props.reload));
+
+
     }
 
     return (
@@ -32,6 +44,20 @@ const Header = ({props}) => {
                         </Link>
                     </ul>
                 </div>
+
+                <form className="searchBar" action="/search"
+                      onSubmit={(e) => {
+                          searchHandler(e)
+                      }}>
+                    <input id="searchInput" type="text"
+                           name="keyword" maxLength="50"
+                           placeholder="글 제목, 본문 검색"
+                           onChange={(e) => {
+                               setKeyword(e.target.value)
+                           }}/>
+                    {/*<button onClick={searchHandler}></button>*/}
+                </form>
+
                 <div className="headerRegisterContainer">
                     {isAuth ? <>
                             <Link to="/mypage">마이페이지</Link>

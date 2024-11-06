@@ -11,22 +11,31 @@ const BoardList = (props) => {
     const [error, setError] = useState(null)
     const [data, setData] = useState();
 
-    const handlePageChange = (newData) => {
-        setCurrentPage(newData);
-    };
+
+    let url = `http://localhost:8080/new?page=${currentPage}`;
+
+    if (props.keyword) {
+        url = `http://localhost:8080/search/title?keyword=${props.keyword}&page=${currentPage}`
+    }
 
     useEffect(() => {
         axios({
-            url: `http://localhost:8080/new?page=${currentPage}`,
+            url: url,
             method: "GET",
 
         }).then((response) => {
+            console.log(response.data)
             setData(response.data);
             setLoading(false);
         }).catch((error) => {
             setError(true);
         })
-    }, [currentPage])
+    }, [currentPage, props.keyword])
+
+    const handlePageChange = (newData) => {
+        setCurrentPage(newData);
+    };
+
 
     if (loading) {
         return <div>loading</div>
