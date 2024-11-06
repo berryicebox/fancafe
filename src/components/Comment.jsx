@@ -39,15 +39,15 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
     return (<>
 
             <div className={comment.parent ? "comment child" : "comment"}>
-                <span> {comment.id} </span>
-                {console.log(parentList)}
-                {console.log(comment.parent?.id in parentList)}
+                <div className="info-section">
+                    <div className="author-info"><span> {comment.id} </span>
+                        {!parentList.has(comment.parent?.id) ? <span> {comment.parent?.id} </span> : null}
+                        <span> {comment.nickname} </span>
+                    </div>
+                    {comment.imageUrl && <img className="commentImg" src={url}/>}
+                    <span> {comment.content} </span>
+                </div>
 
-                {!parentList.has(comment.parent?.id) ? <span> {comment.parent?.id} </span> : null}
-
-                <span> {comment.nickname} </span>
-                {comment.imageUrl && <img className="commentImg" src={url}/>}
-                <span> {comment.content} </span>
 
                 <div className={"edit-section"}>
                     <button onClick={() => setReply(true)}>대댓글작성</button>

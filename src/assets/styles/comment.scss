@@ -1,13 +1,37 @@
-.commentImg {
-  max-width: 200px;
+.comment {
+  min-height: 30px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
 
-  max-height: 200px;
+  .info-section {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+
+
+    .commentImg {
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+
+  }
+
+  .edit-section {
+    float: right;
+    display: flex;
+    flex-direction: row;
+  }
+
+
 }
 
-.edit-section {
-  float: right;
-  display: flex;
-  flex-direction: row;
+hr {
+  background: var(--alpha-3);
+  height: 1px;
+  border: 0;
 }
 
 .child {

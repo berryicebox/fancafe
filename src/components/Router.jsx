@@ -14,6 +14,7 @@ import JoinSuccess from "../pages/JoinSuccess";
 import "../assets/styles/router.scss";
 import MyPage from "../pages/MyPage";
 import ContentsViewer from "./ContentsViewer";
+import Search from "../pages/Search";
 
 const Router = (props) => {
     return (
@@ -34,6 +35,8 @@ const Router = (props) => {
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/mypage" element={<MyPage/>}/>
                         <Route path="/:category/:post_id" element={<ContentsViewer/>}/>
+                        <Route path="/search" element={<Search/>}/>
+
                     </Routes>
                 </div>
 
