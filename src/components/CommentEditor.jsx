@@ -52,11 +52,7 @@ const CommentEditor = (props) => {
                 data: formData,
             }).then((response) => {
                 clearInput()
-                if (props.isEdit) {
-                    props.setEdit(!props.edit)
-                } else {
-                    props.setCommentSummited(true)
-                }
+
             })
         } catch (error) {
             console.log(error)
@@ -75,6 +71,15 @@ const CommentEditor = (props) => {
         setNewComment("")
         setImg(null);
         inputImageRef.current.value = null;
+        if (props.isReply) {
+            props.setReply(false)
+        }
+        if (props.isEdit) {
+            props.setEdit(!props.edit)
+        } else {
+            props.setCommentSummited(true)
+        }
+
 
     }
 
