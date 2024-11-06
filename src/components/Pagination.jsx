@@ -30,10 +30,9 @@ const Pagination = ({currentPage, totalPost, handlePageChange}) => {
 
                     {Array(btnRange).fill(startPage).map((_, i) => {
                         return (
-                            ((totalPost / 10) >= (startPage + i)) &&
+                            ((totalPost / 10) + 1 >= (startPage + i)) &&
                             <button
                                 className={(startPage + i === currentPage) ? "numBtn selected" : "numBtn"}
-
                                 key={i}
                                 onClick={() => handlePageChange(startPage + i)}>
                                 {startPage + i}

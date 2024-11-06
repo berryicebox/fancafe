@@ -39,8 +39,7 @@ const BoardList = (props) => {
             {data && data.posts.map((data) => {
                 return (
                     // <BoardItem key={data.id} id={data.id} userId={data.userId} itemTitle={data.title}/>
-                    <BoardItem key={data.id} id={data.id} userId={data.nickname} itemTitle={data.title}
-                               category={data.category}/>
+                    <BoardItem key={data.id} data={data}/>
                 );
             })}
             {props.isAuth ? <WriteButton/> : null}
