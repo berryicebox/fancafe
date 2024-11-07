@@ -1,6 +1,6 @@
 import instance from "./axios";
 import {useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "../assets/styles/commentEditor.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage} from "@fortawesome/free-solid-svg-icons";
@@ -10,15 +10,29 @@ const CommentEditor = (props) => {
     const {post_id} = useParams()
     const [newComment, setNewComment] = useState("")
     const [img, setImg] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const inputImageRef = useRef();
+
 
     useEffect(() => {
         if (props.comment) {
             // console.log(props.comment.content);
             setNewComment(props.comment.content);
+
         }
+        getLoginInfo();
     }, [])
+
+    const getLoginInfo = () => {
+
+        if (localStorage.getItem("accessToken")) {
+            console.log(localStorage.getItem("accessToken"));
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -86,17 +100,26 @@ const CommentEditor = (props) => {
 
     }
 
-    return (
-        <form className="input-comment" onSubmit={(e) => onSubmitHandler(e)}>
+    return (<>
+            {
+                isLoggedIn ? (
+                    <form className="input-comment" onSubmit={(e) => onSubmitHandler(e)}>
+                        <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
+                        <div className="btn-section">
+                            <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon
+                                icon={faImage}/></label>
+                            <input id="input-file" ref={inputImageRef} onChange={(e) => ImgUploadHandler(e)} type="file"
+                                   accept="image/*"/>
+                            <button className="submit-button">등록</button>
+                        </div>
+                    </form>
 
-            <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-            <div className="btn-section">
-                <label className="input-file-button" htmlFor="input-file"><FontAwesomeIcon icon={faImage}/></label>
-                <input id="input-file" ref={inputImageRef} onChange={(e) => ImgUploadHandler(e)} type="file"
-                       accept="image/*"/>
-                <button className="submit-button">등록</button>
-            </div>
-        </form>
+                ) : (<div className={"go-login"}>먼저 로그인 해주세요
+                    <Link to="/login">로그인</Link>
+                </div>)
+            }
+        </>
+
     )
 }
 export default CommentEditor
