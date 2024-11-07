@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import instance from './axios.jsx'
 
 import {Viewer} from '@toast-ui/react-editor';
 
 import Comments from "./Comments";
+import axios from "axios";
 
 
 const ContentsViewer = ({props}) => {
@@ -13,12 +13,12 @@ const ContentsViewer = ({props}) => {
 
 
     useEffect(() => {
-        instance({
+        axios({
             method: "GET",
-            url: `/${category}/${post_id}`
+            url: `http://localhost:8080/${category}/${post_id}`
         })
             .then(response => setContentInfo(response.data))
-            .catch(error => console.error(error));
+            .catch(error => console.log(error));
     }, [category, post_id]);
 
     if (!contentInfo) {
