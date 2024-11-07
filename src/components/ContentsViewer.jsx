@@ -11,6 +11,7 @@ const ContentsViewer = ({props}) => {
     const { category, post_id } = useParams();
     const [contentInfo, setContentInfo] = useState(null);
     const modifiedTime = useModifyTime(contentInfo?.createdDate);
+    let heartStatus = contentInfo?.heart;
 
     useEffect(() => {
         instance({
@@ -18,6 +19,9 @@ const ContentsViewer = ({props}) => {
             url: `/${category}/${post_id}`
         })
             .then(response => {
+                console.log(response.data)
+
+                console.log(response.data)
                 setContentInfo(response.data)
             })
             .catch(error => console.error(error));
@@ -27,7 +31,7 @@ const ContentsViewer = ({props}) => {
         return (<p>데이터가 없습니다</p>)
     }
 
-    console.log('데이터: ', contentInfo);
+    console.log('데이터: ', contentInfo.heart);
 
   return (
     <div>
@@ -38,6 +42,8 @@ const ContentsViewer = ({props}) => {
                 <p>작성자: {contentInfo.nickname}</p>
                 <p>시간: {modifiedTime} </p>
                 <p>조회수: {contentInfo.hits}</p>
+                <p>추천수: {contentInfo.count_heart}</p>
+                <p>테스트-추천상태: {contentInfo.heart === false ? 'x' : 'o'}</p>
             </div>
         </div>
         
@@ -49,7 +55,7 @@ const ContentsViewer = ({props}) => {
             />
         </div>
 
-        <HeartButton/>
+        <HeartButton heartStatus={heartStatus}/>
 
         <Comments />
     </div>
