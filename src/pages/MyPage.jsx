@@ -10,8 +10,11 @@ function MyPage(props) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
-    const [nameInvalid, setNameInvalid] = useState(false);
 
+    const [inputEmail, setInputEmail] = useState("");
+    const [inputName, setInputName] = useState("");
+
+    const [nameInvalid, setNameInvalid] = useState(false);
     const [emailInvalid, setEmailInvalid] = useState(false);
     const [invalidRequest, setInvalidRequest] = useState(false);
 
@@ -20,44 +23,68 @@ function MyPage(props) {
 
     const [isModified, setIsModified] = useState(false);
 
+    const [submitted, setSubmitted] = useState(false)
     useEffect(() => {
         const fetchData = async () => {
             const response = await instance({
-                url: "/auth/mypage",
+                url: "/mypage/update",
                 method: "GET"
             })
             if (response && response.data) {
-                setName(response.data.nickname);
-                setEmail(response.data.mail);
                 setUsername(response.data.username);
+
+                setName(response.data.nickname);
+                setInputName(response.data.nickname);
+
+                setEmail(response.data.mail);
+                setInputEmail(response.data.mail);
             }
         }
         fetchData()
 
-    }, [])
+    }, [submitted])
 
     const editUser = (e) => {
         e.preventDefault();
+        let data;
+
+        if (inputEmail != email && inputName != name) {
+            data = {
+                mail: email,
+                nickname: name
+            }
+        } else if (inputName != name) {
+            data = {
+                nickname: name
+            }
+
+        } else if (inputEmail != email) {
+            data = {
+                mail: email
+            }
+
+        } else {
+            return
+        }
+
 
         if (emailInvalid) {
             setInvalidRequest(true)
         } else {
             setInvalidRequest(false)
             instance({
-                url: "/auth/mypage",
+                url: "/mypage/update",
                 method: "POST",
-                data: {
-                    mail: email,
-                    nickname: name
-                },
+                data: data,
             }).then(response => {
                 setIsModified(true);
+                setSubmitted(!submitted);
             })
-                .catch(error => errorHandeler(error.response.data.error))
+                .catch(error => errorHandler(error.response.data.error))
 
         }
     }
-    const errorHandeler = (error) => {
+    const errorHandler = (error) => {
         console.log(error);
         // setInvalidRequest(true)
         if (error === "mail already exists") {
@@ -142,7 +169,6 @@ function MyPage(props) {
             console.log("탈퇴안함")
         }
     }
-
 
     return (
         <div className="container">
