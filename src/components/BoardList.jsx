@@ -3,22 +3,33 @@ import WriteButton from "./WriteButton";
 import Pagination from "./Pagination";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {useParams} from "react-router-dom";
 
 const BoardList = (props) => {
+
+    const {category} = useParams();
+    let categoryValue;
+    if (category == null) {
+        categoryValue = "new";
+    } else {
+        categoryValue = category;
+    }
 
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [data, setData] = useState();
+    // const [total, setData] = useState();
 
 
-    let url = `http://localhost:8080/new?page=${currentPage}`;
+    let url = `http://localhost:8080/${categoryValue}?page=${currentPage}`;
 
     if (props.keyword) {
         url = `http://localhost:8080/search/title?keyword=${props.keyword}&page=${currentPage}`
     }
 
     useEffect(() => {
+        console.log(category);
         axios({
             url: url,
             method: "GET",
@@ -27,10 +38,16 @@ const BoardList = (props) => {
             console.log(response.data)
             setData(response.data);
             setLoading(false);
+            console.log(response.data.total);
         }).catch((error) => {
             setError(true);
         })
-    }, [currentPage, props.keyword])
+    }, [currentPage, props.keyword, category])
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [category])
+
 
     const handlePageChange = (newData) => {
         setCurrentPage(newData);
