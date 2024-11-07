@@ -3,30 +3,30 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faFaceGrinTears} from "@fortawesome/free-regular-svg-icons";
 import {Link} from "react-router-dom";
 
-const BoardItem = (props) => {
+const BoardItem = ({data}) => {
 
     return (
         <div>
-            <Link to={`/${props.category}/${props.id}`}>
+            <Link to={`/${data.category}/${data.id}`}>
                 <div className={"info"}>
                     <div className={"title"}>
-                        <span> {props.itemTitle} </span>
+                        <span> {data.title} </span>
                         <FontAwesomeIcon icon={faCommentDots}/>
-                        <span>5</span>
+                        <span>{data.count_comment}</span>
                     </div>
 
                     <div className={"detail-info"}>
                         <div className={"like-info"}>
                             <FontAwesomeIcon icon={faFaceGrinTears}/>
-                            <span>22</span>
+                            <span> {data.count_heart} </span>
 
                         </div>
                         <div className={"author-info"}>
-                            <span> {props.userId} </span>
+                            <span> {data.name} </span>
                             <span>·</span>
-                            <span>조회수 2204</span>
+                            <span>조회수 {data.hits}</span>
                             <span>·</span>
-                            <span>7시간전</span>
+                            <span>{data.createdDate}</span>
                         </div>
 
                     </div>
