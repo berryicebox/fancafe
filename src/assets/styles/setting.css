@@ -53,7 +53,10 @@
 :root {
     --site-width: 1080px;
     --banner-gap: 24px;
-    --banner-mobile-gap: 16px
+    --banner-mobile-gap: 16px;
+    --header-height: 76px;
+    --category-height: 300px;
+
 }
 
 

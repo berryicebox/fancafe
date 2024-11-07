@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 
 const Pagination = ({currentPage, totalPost, handlePageChange}) => {
 
+    console.log("totalPost: ", totalPost);
 
     const [page, setPage] = useState(1); // 현재 페이지 수
 
@@ -16,6 +17,7 @@ const Pagination = ({currentPage, totalPost, handlePageChange}) => {
     const endPage = startPage + btnRange - 1; // 현재 보여질 끝 버튼의 수
     const totalSet = Math.ceil(Math.ceil(totalPost / pageRange) / btnRange); // 전체 벼튼 세트 수
 
+    const pages = Math.ceil(totalPost / pageRange);
     useEffect(() => {
     }, []);
 
@@ -30,7 +32,7 @@ const Pagination = ({currentPage, totalPost, handlePageChange}) => {
 
                     {Array(btnRange).fill(startPage).map((_, i) => {
                         return (
-                            ((totalPost / 10) + 1 >= (startPage + i)) &&
+                            ((pages) >= (startPage + i)) &&
                             <button
                                 className={(startPage + i === currentPage) ? "numBtn selected" : "numBtn"}
                                 key={i}
