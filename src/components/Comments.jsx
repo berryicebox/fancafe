@@ -14,7 +14,7 @@ const Comments = () => {
         console.log("postid =" + post_id);
         axios({
             method: 'get',
-            url: `http://localhost:8080/comment/${post_id}?page=1`,
+            url: `http://localhost:8080/comment/${post_id}`,
         }).then(({data}) => {
             console.log(data)
             setData(data.comments)

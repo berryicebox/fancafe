@@ -43,6 +43,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
                     <div className="author-info"><span> {comment.id} </span>
                         {!parentList.has(comment.parent?.id) ? <span> {comment.parent?.id} </span> : null}
                         <span> {comment.nickname} </span>
+                        <span> {comment.createdDate} </span>
                     </div>
                     {comment.imageUrl && <img className="commentImg" src={url}/>}
                     <span> {comment.content} </span>
