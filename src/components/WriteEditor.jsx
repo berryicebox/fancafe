@@ -27,8 +27,6 @@ const WriteEditor = forwardRef((props, ref) => {
                 console.log(response.data);
                 imageUrl = `http://localhost:8080/file/image-print?filename=${response.data}`;
                 callback(imageUrl, 'image alt attribute');
-
-
             }).catch((error) => {
                 console.log(error)
             })
