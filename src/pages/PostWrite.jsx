@@ -1,11 +1,12 @@
 import {useCallback, useRef, useState} from "react"
 import WriteEditor from "../components/WriteEditor"
 import '../assets/styles/postWrite.scss'
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import instance from "../components/axios";
 
 
-export default function PostWrite() {
+export default function PostWrite(props) {
+    const navigate = useNavigate();
     // 작성 내용(contents), 제목(title), 카테고리(category) 저장
     const editorRef = useRef(null);
     const [title, setTitle] = useState('');
@@ -44,12 +45,11 @@ export default function PostWrite() {
             instance({
                 method: "POST",
                 url: "/post/write",
-                headers: {
-                    Authorization: `Bearer ${token}` // JWT 포함
-                },
                 data: data,
             })
-                .then(response => response.data)
+                .then(() => {
+                    navigate('/');
+                })
                 .catch(error => console.error(error));
         }
     }, [category, title]);
@@ -72,11 +72,9 @@ export default function PostWrite() {
                    onChange={(e) => setTitle(e.target.value)}
             />
             <WriteEditor ref={editorRef}/>
-            <Link to="/">
-                <button onClick={onClickEnrollBtn}
-                        className="submitButton">등록
-                </button>
-            </Link>
+            <button onClick={onClickEnrollBtn}
+                    className="submitButton">등록
+            </button>
         </div>
     )
 }
