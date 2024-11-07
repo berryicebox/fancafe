@@ -1,3 +1,8 @@
+
+import instance from './axios.jsx'
+
+import HeartButton from './HeartButton.jsx';
+
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 
@@ -7,8 +12,9 @@ import Comments from "./Comments";
 import axios from "axios";
 
 
+
 const ContentsViewer = ({props}) => {
-    const {category, post_id} = useParams();
+    const { category, post_id } = useParams();
     const [contentInfo, setContentInfo] = useState(null);
 
 
@@ -17,39 +23,47 @@ const ContentsViewer = ({props}) => {
             method: "GET",
             url: `http://localhost:8080/${category}/${post_id}`
         })
+
             .then(response => setContentInfo(response.data))
             .catch(error => console.log(error));
+
     }, [category, post_id]);
 
-    if (!contentInfo) {
+    if(!contentInfo){
         return (<p>데이터가 없습니다</p>)
     }
 
     console.log('데이터: ', contentInfo);
 
-    return (
-        <>
-            <div>
+    // 시간 처리
+    const totalTime = contentInfo.createdDate; // 2024-11-05T16:55:18.178236
+    const day = totalTime.split('T')[0];
+    const time = totalTime.split('T')[1].split('.')[0];
 
-                <h2>카테고리: {contentInfo.category}</h2>
-                <h1>글 제목: {contentInfo.title}</h1>
-                <div>
-                    <p>작성자: {contentInfo.nickname}</p>
-                    <p>시간: {contentInfo.createdDate}</p>
-                    <p>조회수: {contentInfo.hits}</p>
-                </div>
-            </div>
-            <hr/>
+  return (
+    <div>
+        <div>
+            <h2>카테고리: {contentInfo.category}</h2>
+            <h1>글 제목: {contentInfo.title}</h1>
             <div>
-                <Viewer
-                    initialValue={contentInfo.contents}
-                />
-
+                <p>작성자: {contentInfo.nickname}</p>
+                <p>시간: {day} {time} </p>
+                <p>조회수: {contentInfo.hits}</p>
             </div>
-            <hr/>
-            <Comments/>
-        </>
-    );
+        </div>
+        
+        <hr/>
+        
+        <div>
+            <Viewer
+                initialValue={contentInfo.contents}
+            />
+        </div>
+
+        <HeartButton/>
+    </div>
+  );
+
 };
 
 export default ContentsViewer;
