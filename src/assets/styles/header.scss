@@ -92,8 +92,13 @@ $logo-suit-margin: 1.6rem;
     display: flex;
     gap: var(--banner-gap);
     //margin-top: 1rem;
+    .logout {
+      border: none;
+      background: none;
+      font-size: 1rem;
+    }
 
-    p {
+    p, link {
       background-color: #cdecee1a;
       //padding: 1rem;
       border-radius: 20px;
