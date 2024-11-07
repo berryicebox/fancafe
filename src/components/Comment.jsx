@@ -10,6 +10,11 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
     const [reply, setReply] = useState(false)
     const [del, setDel] = useState(false)
     const modifiedTime = useModifyTime(comment.createdDate)
+    const [isAuth, setIsAuth] = useState(false)
+
+    useEffect(() => {
+        getAuth();
+    }, [])
 
     useEffect(() => {
         setCommentSummited(true)
@@ -24,6 +29,22 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
         return (<CommentEditor isEdit={true} edit={edit} setEdit={setEdit} comment={comment}/>)
     }
 
+    const getAuth = () => {
+        instance({
+            url: `http://localhost:8080/comment/update/${comment.id}`,
+            method: "GET"
+        }).then((response) => {
+                console.log("isAuth?")
+                console.log(response.data)
+                if (response.data === true) {
+                    setIsAuth(true)
+                }
+            }
+        ).catch((error) => {
+            console.log(error)
+        })
+
+    }
 
     const deleteHandler = () => {
         instance({
@@ -54,8 +75,12 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
 
                 <div className={"edit-section"}>
                     <button onClick={() => setReply(true)}>대댓글작성</button>
-                    <button onClick={() => setEdit(true)}>수정</button>
-                    <button onClick={deleteHandler}>삭제</button>
+                    {isAuth ?
+                        (<>
+                            <button onClick={() => setEdit(true)}>수정</button>
+                            <button onClick={deleteHandler}>삭제</button>
+                        </>) : null}
+
                 </div>
             </div>
             {reply ?
