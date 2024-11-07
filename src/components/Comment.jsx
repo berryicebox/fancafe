@@ -2,12 +2,14 @@ import "../assets/styles/comment.scss"
 import {useEffect, useState} from "react";
 import CommentEditor from "./CommentEditor";
 import instance from "./axios";
+import { useModifyTime } from "../utils/useModifyTime";
 
 const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => {
     let url;
     const [edit, setEdit] = useState(false)
     const [reply, setReply] = useState(false)
     const [del, setDel] = useState(false)
+    const modifiedTime = useModifyTime(comment.createdDate)
 
     useEffect(() => {
         setCommentSummited(true)
@@ -43,7 +45,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
                     <div className="author-info"><span> {comment.id} </span>
                         {!parentList.has(comment.parent?.id) ? <span> {comment.parent?.id} </span> : null}
                         <span> {comment.nickname} </span>
-                        <span> {comment.createdDate} </span>
+                        <span> {comment.createdDate} {modifiedTime} </span>
                     </div>
                     {comment.imageUrl && <img className="commentImg" src={url}/>}
                     <span> {comment.content} </span>
