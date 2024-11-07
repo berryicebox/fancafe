@@ -2,8 +2,10 @@ import "../assets/styles/board.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faFaceGrinTears} from "@fortawesome/free-regular-svg-icons";
 import {Link} from "react-router-dom";
+import { useModifyTime } from "../utils/useModifyTime";
 
 const BoardItem = ({data}) => {
+    const modifiedTime = useModifyTime(data.createdDate)
 
     return (
         <div>
@@ -26,7 +28,7 @@ const BoardItem = ({data}) => {
                             <span>·</span>
                             <span>조회수 {data.hits}</span>
                             <span>·</span>
-                            <span>{data.createdDate}</span>
+                            <span>{modifiedTime}</span>
                         </div>
 
                     </div>
