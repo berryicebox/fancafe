@@ -1,5 +1,4 @@
 import "../assets/styles/header.scss";
-// import "../assets/styles/setting.css";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 

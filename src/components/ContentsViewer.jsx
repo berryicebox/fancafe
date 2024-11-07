@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+
 import instance from './axios.jsx'
-<<<<<<< HEAD
-import { Viewer } from '@toast-ui/react-editor';
+
 import HeartButton from './HeartButton.jsx';
-=======
+
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 
 import {Viewer} from '@toast-ui/react-editor';
 
 import Comments from "./Comments";
+import axios from "axios";
 
->>>>>>> b8d70a19c06c054c3dce51058c651bf24c654e0d
+
 
 const ContentsViewer = ({props}) => {
     const { category, post_id } = useParams();
@@ -18,14 +19,14 @@ const ContentsViewer = ({props}) => {
 
 
     useEffect(() => {
-        instance({
+        axios({
             method: "GET",
-            url: `/${category}/${post_id}`
+            url: `http://localhost:8080/${category}/${post_id}`
         })
-            .then(response => {
-                setContentInfo(response.data)
-            })
-            .catch(error => console.error(error));
+
+            .then(response => setContentInfo(response.data))
+            .catch(error => console.log(error));
+
     }, [category, post_id]);
 
     if(!contentInfo){
@@ -34,7 +35,6 @@ const ContentsViewer = ({props}) => {
 
     console.log('데이터: ', contentInfo);
 
-<<<<<<< HEAD
     // 시간 처리
     const totalTime = contentInfo.createdDate; // 2024-11-05T16:55:18.178236
     const day = totalTime.split('T')[0];
@@ -63,31 +63,7 @@ const ContentsViewer = ({props}) => {
         <HeartButton/>
     </div>
   );
-=======
-    return (
-        <>
-            <div>
 
-                <h2>카테고리: {contentInfo.category}</h2>
-                <h1>글 제목: {contentInfo.title}</h1>
-                <div>
-                    <p>작성자: {contentInfo.nickname}</p>
-                    <p>시간: {contentInfo.createdDate}</p>
-                    <p>조회수: {contentInfo.hits}</p>
-                </div>
-            </div>
-            <hr/>
-            <div>
-                <Viewer
-                    initialValue={contentInfo.contents}
-                />
-
-            </div>
-            <hr/>
-            <Comments/>
-        </>
-    );
->>>>>>> b8d70a19c06c054c3dce51058c651bf24c654e0d
 };
 
 export default ContentsViewer;
