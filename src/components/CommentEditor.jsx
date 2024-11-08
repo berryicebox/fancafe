@@ -27,7 +27,7 @@ const CommentEditor = (props) => {
     const getLoginInfo = () => {
 
         if (localStorage.getItem("accessToken")) {
-            console.log(localStorage.getItem("accessToken"));
+            // console.log(localStorage.getItem("accessToken"));
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -80,7 +80,7 @@ const CommentEditor = (props) => {
         if (!e.target.files)
             return;
         setImg(e.target.files[0]);
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         console.log("등록");
     }
 

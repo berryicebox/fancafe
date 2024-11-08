@@ -34,8 +34,8 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
             url: `http://localhost:8080/comment/update/${comment.id}`,
             method: "GET"
         }).then((response) => {
-                console.log("isAuth?")
-                console.log(response.data)
+                // console.log("isAuth?")
+                // console.log(response.data)
                 if (response.data === true) {
                     setIsAuth(true)
                 }
