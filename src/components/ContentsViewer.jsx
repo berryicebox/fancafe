@@ -11,9 +11,12 @@ const ContentsViewer = ({props}) => {
     const { category, post_id } = useParams();
     
     const [contentInfo, setContentInfo] = useState(null);
+    const [heartStatus, setHeartStatus] = useState(contentInfo?.heart);
+    const [countHeart, setCountHeart] = useState(contentInfo?.count_heart);
     
     const modifiedTime = useModifyTime(contentInfo?.createdDate);
-    let heartStatus = contentInfo?.heart;
+
+    // let heartStatus = contentInfo?.heart;
 
     useEffect(() => {
         instance({
@@ -22,6 +25,8 @@ const ContentsViewer = ({props}) => {
         })
             .then(response => {
                 setContentInfo(response.data)
+                setHeartStatus(response.data.heart)
+                setCountHeart(response.data.count_heart)
             })
             .catch(error => console.error(error));
     }, [category, post_id]);
@@ -39,7 +44,7 @@ const ContentsViewer = ({props}) => {
                 <p>작성자: {contentInfo.nickname}</p>
                 <p>시간: {modifiedTime} </p>
                 <p>조회수: {contentInfo.hits}</p>
-                <p>추천수: {contentInfo.count_heart}</p>
+                <p>추천수: {countHeart} </p>
             </div>
         </div>
         
@@ -53,6 +58,9 @@ const ContentsViewer = ({props}) => {
 
         <HeartButton
             heartStatus={heartStatus}
+            setHeartStatus={setHeartStatus}
+            setCountHeart={setCountHeart}
+            countHeart={countHeart}
         />
 
         <Comments />
