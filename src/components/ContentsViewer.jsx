@@ -5,6 +5,8 @@ import {Viewer} from '@toast-ui/react-editor';
 import HeartButton from './HeartButton.jsx';
 import Comments from "./Comments";
 import {useModifyTime} from '../utils/useModifyTime.jsx';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFaceGrinTears} from "@fortawesome/free-regular-svg-icons";
 import "../assets/styles/contentViewer.scss"
 
 const ContentsViewer = ({props}) => {
@@ -16,8 +18,6 @@ const ContentsViewer = ({props}) => {
     const [heartStatus, setHeartStatus] = useState(contentInfo?.heart);
     const [countHeart, setCountHeart] = useState(contentInfo?.count_heart);
     const modifiedTime = useModifyTime(contentInfo?.createdDate);
-
-    // let heartStatus = contentInfo?.heart;
 
     useEffect(() => {
         instance({
@@ -73,15 +73,17 @@ const ContentsViewer = ({props}) => {
     return (
         <div>
             <div className="content-info-container">
-                <div className="content-info">
-                    <h1> {contentInfo.title}</h1>
-                    <h2> {contentInfo.category}</h2>
-
-                </div>
-                <div className="content-author-info">
-                    <span className="user-name">{contentInfo.nickname}</span>
-                    <span className="modified-time"> {modifiedTime}·</span>
-                    <span className="hits">조회 {contentInfo.hits}</span>
+                <div className="info-box">
+                        <div className="content-info">
+                            <h2> {contentInfo.category}</h2>
+                            <h1> {contentInfo.title}</h1>
+                        </div>
+                        <div className="content-author-info">
+                            <span className="user-name">{contentInfo.nickname}{" "}</span>
+                            <FontAwesomeIcon icon={faFaceGrinTears} className="faFaceGrinTears"/><span className="hearts">{countHeart}</span>
+                            <span className="modified-time"> {modifiedTime}{" "}·{" "}</span>
+                            <span className="hits">조회 {contentInfo.hits}</span>
+                        </div>
                 </div>
                 <div className="content-modify-button">
                     {isAuth ? (<>
@@ -90,18 +92,7 @@ const ContentsViewer = ({props}) => {
                     </>) : null}
                     <button>공유</button>
                 </div>
-
-
-
             </div>
-
-
-        <HeartButton
-            heartStatus={heartStatus}
-            setHeartStatus={setHeartStatus}
-            setCountHeart={setCountHeart}
-            countHeart={countHeart}
-        />
 
             <hr/>
 
@@ -111,8 +102,14 @@ const ContentsViewer = ({props}) => {
                 />
             </div>
 
-            <HeartButton/>
-
+            <div className="heart-button-container">
+                <HeartButton
+                    heartStatus={heartStatus}
+                    setHeartStatus={setHeartStatus}
+                    setCountHeart={setCountHeart}
+                    countHeart={countHeart}
+                />
+            </div>
 
             <hr/>
             <Comments/>
