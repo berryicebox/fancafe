@@ -22,30 +22,32 @@
 
   .content-author-info {
 
-    .user-name{
+    .user-name {
       font-weight: bold;
       margin-right: 0.5rem;
     }
 
-    .faFaceGrinTears{
+    .faFaceGrinTears {
       margin-right: 0.3rem;
     }
 
-    .hearts{
+    .hearts {
       font-weight: bold;
       margin-right: 0.5rem;
     }
 
-    .modified-time ,.hits{
+    .modified-time, .hits {
       font-size: 0.9rem;
       color: var(--alpha-30);
     }
   }
 
   .content-modify-button {
+
     
     button{
       border: 3px solid transparent;
+
       padding: 0.3rem;
 
       background-color: transparent;
@@ -62,8 +64,9 @@
 }
 
 .view-content {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 20px;
+  //margin-top: 2rem;
+  //margin-bottom: 2rem;
   min-height: 150px;
 }
 

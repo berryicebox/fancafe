@@ -1,9 +1,11 @@
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import instance from './axios.jsx';
 import '../assets/styles/heartButton.scss'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHeart, faHeartCrack} from "@fortawesome/free-solid-svg-icons";
 
-export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart, countHeart }) {
-    const { post_id } = useParams();
+export default function HeartButton({heartStatus, setHeartStatus, setCountHeart, countHeart}) {
+    const {post_id} = useParams();
     const haveToken = localStorage.getItem('accessToken');
 
     function handleAlertLogin() {
@@ -12,7 +14,7 @@ export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart
         }
     }
 
-    function handleUpDownHeart(){
+    function handleUpDownHeart() {
         if (haveToken === null) return;
 
         const url = heartStatus ? `/heart/delete/${post_id}` : `/heart/add/${post_id}`;
@@ -22,12 +24,12 @@ export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart
             method: "GET",
             url: url
         })
-        .then(response => {
-            setHeartStatus(!heartStatus);
-            setCountHeart(countHeart + (heartStatus ? -1 : 1));
-            alert(successMessage);
-        })
-        .catch(error => console.error(error));
+            .then(response => {
+                setHeartStatus(!heartStatus);
+                setCountHeart(countHeart + (heartStatus ? -1 : 1));
+                alert(successMessage);
+            })
+            .catch(error => console.error(error));
     }
 
     const handleButtonClick = () => {
@@ -37,7 +39,8 @@ export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart
 
     return (
         <button className="heart-button" onClick={handleButtonClick}>
-            {heartStatus ? '추천취소' : '추천'}
+            {heartStatus ? <span className="icon"><FontAwesomeIcon icon={faHeartCrack}/>추천 취소</span> :
+                <span className="icon"><FontAwesomeIcon icon={faHeart}/>추천</span>}
         </button>
     );
 }

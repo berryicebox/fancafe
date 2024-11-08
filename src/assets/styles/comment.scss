@@ -39,8 +39,11 @@
     float: right;
     display: flex;
     flex-direction: row;
+    align-items: baseline;
+    height: 100%;
 
     gap: 8px;
+
 
     button {
       background: none;
@@ -49,8 +52,6 @@
 
     }
   }
-
-
 }
 
 hr {
