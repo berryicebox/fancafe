@@ -6,7 +6,8 @@ import HeartButton from './HeartButton.jsx';
 import Comments from "./Comments";
 import {useModifyTime} from '../utils/useModifyTime.jsx';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFaceGrinTears} from "@fortawesome/free-regular-svg-icons";
+import {faFaceGrinTears, faPenToSquare} from "@fortawesome/free-regular-svg-icons";
+import {faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
 import "../assets/styles/contentViewer.scss"
 
 const ContentsViewer = ({props}) => {
@@ -87,10 +88,10 @@ const ContentsViewer = ({props}) => {
                 </div>
                 <div className="content-modify-button">
                     {isAuth ? (<>
-                        <button onClick={editHandler}>수정</button>
-                        <button onClick={deleteHandler}>삭제</button>
+                        <button onClick={editHandler}><FontAwesomeIcon icon={faPenToSquare}/>수정</button>
+                        <button onClick={deleteHandler}><FontAwesomeIcon className="fa-xmark" icon={faXmark}/>삭제</button>
                     </>) : null}
-                    <button>공유</button>
+                    <button><FontAwesomeIcon icon={faShare} />공유</button>
                 </div>
  
             </div>

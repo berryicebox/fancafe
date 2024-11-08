@@ -45,8 +45,18 @@
   .content-modify-button {
     
     button{
-      border: 3px solid white;
+      border: 3px solid transparent;
       padding: 0.3rem;
+
+      background-color: transparent;
+
+      :first-child{
+        margin-right: 0.3rem;
+      }
+
+      .fa-xmark{
+        margin-right: 0.5rem;
+      }
     }
   }
 }
