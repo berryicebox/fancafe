@@ -1,16 +1,37 @@
-import {useCallback, useRef, useState} from "react"
+import {useCallback, useEffect, useRef, useState} from "react"
 import WriteEditor from "../components/WriteEditor"
 import '../assets/styles/postWrite.scss'
-import {Link} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import instance from "../components/axios";
 
 
-export default function PostWrite() {
+export default function PostWrite(props) {
+    const navigate = useNavigate();
     // 작성 내용(contents), 제목(title), 카테고리(category) 저장
     const editorRef = useRef(null);
+    const {state} = useLocation();
+
     const [title, setTitle] = useState('');
     // 카테고리 선택 최상단에 자유가 있으므로 디폴트 값으로 자유
     const [category, setCategory] = useState('자유');
+    const [isEdit, setIsEdit] = useState(false);
+
+
+    useEffect(() => {
+        if (state) {
+
+            console.log("수정");
+            console.log(state);
+
+            setIsEdit(true);
+            setTitle(state.title);
+            setCategory(state.category);
+
+        } else {
+            setIsEdit(false);
+        }
+    }, [])
+
 
     // 카테고리 선택할 때 저장
     function onSelectCategory(e) {
@@ -28,8 +49,10 @@ export default function PostWrite() {
 
         } else {
             const token = localStorage.getItem('accessToken'); // 토큰 가져오기
-
-            // console.log('token: ', token); // 테스트 코드
+            const url = isEdit ? `/${state.category}/${state.id}/edit` : "/post/write"
+            const method = isEdit ? "PUT" : "POST";
+            // const finalTitle = isEdit ? state.title : title;
+            // const url = "";
 
             // 보낼 데이터
             const data = {
@@ -38,18 +61,15 @@ export default function PostWrite() {
                 "category": category
             }
 
-            console.log('sending data: ', data); // 테스트 코드
 
-            // axios + refresh 토큰 필요 유무 확인 메서드
             instance({
-                method: "POST",
-                url: "/post/write",
-                headers: {
-                    Authorization: `Bearer ${token}` // JWT 포함
-                },
+                method: method,
+                url: url,
                 data: data,
             })
-                .then(response => response.data)
+                .then(() => {
+                    navigate('/');
+                })
                 .catch(error => console.error(error));
         }
     }, [category, title]);
@@ -69,14 +89,13 @@ export default function PostWrite() {
             </select>
             <input placeholder='제목' name='title'
                    className="inputTitle"
+                   value={title}
                    onChange={(e) => setTitle(e.target.value)}
             />
-            <WriteEditor ref={editorRef}/>
-            <Link to="/">
-                <button onClick={onClickEnrollBtn}
-                        className="submitButton">등록
-                </button>
-            </Link>
+            <WriteEditor ref={editorRef} initialValue={state}/>
+            <button onClick={onClickEnrollBtn}
+                    className="submitButton">등록
+            </button>
         </div>
     )
 }

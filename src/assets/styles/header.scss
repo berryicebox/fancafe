@@ -1,6 +1,11 @@
 $logo-suit-margin: 1.6rem;
 
+
 .headerContainer {
+  * {
+    color: var(--header-font-color);
+  }
+
   width: 100%;
   background-color: var(--point-color);
   color: var(--body-background-color);
@@ -78,6 +83,8 @@ $logo-suit-margin: 1.6rem;
 
   .headerLnCContainer {
     display: flex;
+
+
   }
 
   .headerCatecoryContainer {
@@ -91,9 +98,17 @@ $logo-suit-margin: 1.6rem;
   .headerRegisterContainer {
     display: flex;
     gap: var(--banner-gap);
-    //margin-top: 1rem;
 
-    p {
+    //margin-top: 1rem;
+    .logout {
+      font-size: 1.1rem;
+
+      padding: 0;
+      border: none;
+      background: none;
+    }
+
+    p, link {
       background-color: #cdecee1a;
       //padding: 1rem;
       border-radius: 20px;

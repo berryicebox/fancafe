@@ -11,7 +11,7 @@ const Comments = () => {
     const [parent, setParent] = useState(null)
 
     useEffect(() => {
-        console.log("postid =" + post_id);
+        // console.log("postid =" + post_id);
         axios({
             method: 'get',
             url: `http://localhost:8080/comment/${post_id}`,
@@ -59,8 +59,8 @@ const Comments = () => {
         const order = Array.from(finalList);
         const sortedData = data.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
 
-        console.log("정렬된 data:", sortedData);
-        console.log(parentList);
+        // console.log("정렬된 data:", sortedData);
+        // console.log(parentList);
         setParent(parentList);
 
         return sortedData;

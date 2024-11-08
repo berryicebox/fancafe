@@ -18,6 +18,8 @@ const Header = (props) => {
         }
     })
     const handleLogout = () => {
+        navigate('/');
+
         localStorage.removeItem('accessToken');
         props.setReload(!(props.reload));
         setIsAuth(false)
@@ -48,7 +50,7 @@ const Header = (props) => {
                 <div className="headerContainer">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
-                            <Link to="/"><h1 onMouseEnter={leaveHeader}>FanCafe</h1></Link>
+                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>FanCafe</h1></Link>
                             <ul className="headerCatecoryContainer">
                                 <Link onMouseEnter={leaveHeader} to="/best">
                                     <li>인기글</li>
@@ -78,7 +80,8 @@ const Header = (props) => {
                         <div className="headerRegisterContainer" onMouseEnter={leaveHeader}>
                             {isAuth ? <>
                                     <Link to="/mypage">마이페이지</Link>
-                                    <Link onClick={handleLogout}>로그아웃</Link></>
+                                    <button className={"logout"} onClick={handleLogout}>로그아웃</button>
+                                </>
                                 : <><Link to="/join">회원가입</Link>
                                     <Link to="/login">로그인</Link></>}
 

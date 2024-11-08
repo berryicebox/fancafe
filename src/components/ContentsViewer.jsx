@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import instance from './axios.jsx'
-import { Viewer } from '@toast-ui/react-editor';
+import {Viewer} from '@toast-ui/react-editor';
 import HeartButton from './HeartButton.jsx';
 import Comments from "./Comments";
-import { useModifyTime } from '../utils/useModifyTime.jsx';
-
+import {useModifyTime} from '../utils/useModifyTime.jsx';
+import "../assets/styles/contentViewer.scss"
 
 const ContentsViewer = ({props}) => {
-    const { category, post_id } = useParams();
-    
+
+
+    const {category, post_id} = useParams();
     const [contentInfo, setContentInfo] = useState(null);
+    const [isAuth, setIsAuth] = useState(false);
     const [heartStatus, setHeartStatus] = useState(contentInfo?.heart);
     const [countHeart, setCountHeart] = useState(contentInfo?.count_heart);
-    
     const modifiedTime = useModifyTime(contentInfo?.createdDate);
 
     // let heartStatus = contentInfo?.heart;
@@ -29,32 +30,71 @@ const ContentsViewer = ({props}) => {
                 setCountHeart(response.data.count_heart)
             })
             .catch(error => console.error(error));
-    }, [category, post_id]);
 
-    if(!contentInfo){
+        instance({
+            method: "GET",
+            url: `/${category}/${post_id}/edit`
+        })
+            .then(response => {
+                console.log(response.data);
+                if (response.data === true) {
+                    setIsAuth(true)
+                } else {
+                    setIsAuth(false)
+                }
+            })
+            .catch(error => console.error(error));
+
+    }, [category, post_id]);
+    const navigate = useNavigate();
+
+    if (!contentInfo) {
         return (<p>데이터가 없습니다</p>)
     }
 
-  return (
-    <div>
+
+    console.log('데이터: ', contentInfo);
+
+    const editHandler = () => {
+        navigate("/post/write", {state: contentInfo});
+    }
+
+    const deleteHandler = () => {
+        instance({
+            method: "DELETE",
+            url: `/${category}/${post_id}/delete`
+
+        }).then(response => {
+            navigate("/");
+        }).catch(error => console.error(error));
+
+    }
+
+    return (
         <div>
-            <h2>카테고리: {contentInfo.category}</h2>
-            <h1>글 제목: {contentInfo.title}</h1>
-            <div>
-                <p>작성자: {contentInfo.nickname}</p>
-                <p>시간: {modifiedTime} </p>
-                <p>조회수: {contentInfo.hits}</p>
-                <p>추천수: {countHeart} </p>
+            <div className="content-info-container">
+                <div className="content-info">
+                    <h1> {contentInfo.title}</h1>
+                    <h2> {contentInfo.category}</h2>
+
+                </div>
+                <div className="content-author-info">
+                    <span className="user-name">{contentInfo.nickname}</span>
+                    <span className="modified-time"> {modifiedTime}·</span>
+                    <span className="hits">조회 {contentInfo.hits}</span>
+                </div>
+                <div className="content-modify-button">
+                    {isAuth ? (<>
+                        <button onClick={editHandler}>수정</button>
+                        <button onClick={deleteHandler}>삭제</button>
+                    </>) : null}
+                    <button>공유</button>
+                </div>
+
+
+
             </div>
-        </div>
-        
-        <hr/>
-        
-        <div>
-            <Viewer
-                initialValue={contentInfo.contents}
-            />
-        </div>
+
 
         <HeartButton
             heartStatus={heartStatus}
@@ -63,9 +103,21 @@ const ContentsViewer = ({props}) => {
             countHeart={countHeart}
         />
 
-        <Comments />
-    </div>
-  );
+            <hr/>
+
+            <div className="view-content">
+                <Viewer
+                    initialValue={contentInfo.contents}
+                />
+            </div>
+
+            <HeartButton/>
+
+
+            <hr/>
+            <Comments/>
+        </div>
+    );
 };
 
 export default ContentsViewer;

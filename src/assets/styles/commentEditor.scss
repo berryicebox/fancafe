@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius: 10px/10px;
+  min-height: 100px;
 
 
   textArea {
@@ -62,5 +63,18 @@
 
     }
   }
+
+}
+
+.go-login {
+  background: var(--sercondary-background-color);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px/10px;
+  min-height: 100px;
+  text-align: center;
+
 
 }

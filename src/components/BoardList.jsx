@@ -29,16 +29,16 @@ const BoardList = (props) => {
     }
 
     useEffect(() => {
-        console.log(category);
+        // console.log(category);
         axios({
             url: url,
             method: "GET",
 
         }).then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             setData(response.data);
             setLoading(false);
-            console.log(response.data.total);
+            // console.log(response.data.total);
         }).catch((error) => {
             setError(true);
         })
