@@ -15,10 +15,10 @@ export default function HeartButton({heartStatus}){
             alert('이미 추천 했습니다');
     }
 
-    useEffect(() => {
+    function handleUpHeart(){
         if(heartStatus === false){
             console.log("**************************heart: ", heartStatus)
-
+    
             if (haveToken !== null) {
                 instance({
                     method: "GET",
@@ -30,12 +30,18 @@ export default function HeartButton({heartStatus}){
                     .catch(error => console.error(error));
             }
         }
-    }, [heartStatus])
+    }
+
+    // 두 함수를 바로 넣으면 에러가 뜨므로 따로 묶은 후 사용
+    const handleButtonClick = () => {
+        handleAlertLogin();
+        handleUpHeart();
+    };
 
     // heart 값에 따라 컴포넌트 변경 (부모? 자식?)
     return (
         <>
-            <button onClick={handleAlertLogin}>
+            <button onClick={handleButtonClick}>
                 추천
             </button>
         </>

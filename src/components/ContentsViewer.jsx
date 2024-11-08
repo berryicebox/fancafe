@@ -11,7 +11,9 @@ const ContentsViewer = ({props}) => {
     const { category, post_id } = useParams();
     const [contentInfo, setContentInfo] = useState(null);
     const modifiedTime = useModifyTime(contentInfo?.createdDate);
+    // const [isHeart, setIsHeart] = useState(contentInfo?.heart)
     let heartStatus = contentInfo?.heart;
+    // console.log('heaert: ', isHeart);
 
     useEffect(() => {
         instance({
