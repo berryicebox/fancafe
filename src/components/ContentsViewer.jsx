@@ -92,16 +92,7 @@ const ContentsViewer = ({props}) => {
                 </div>
 
 
-
             </div>
-
-
-        <HeartButton
-            heartStatus={heartStatus}
-            setHeartStatus={setHeartStatus}
-            setCountHeart={setCountHeart}
-            countHeart={countHeart}
-        />
 
             <hr/>
 
@@ -110,8 +101,12 @@ const ContentsViewer = ({props}) => {
                     initialValue={contentInfo.contents}
                 />
             </div>
-
-            <HeartButton/>
+            <HeartButton
+                heartStatus={heartStatus}
+                setHeartStatus={setHeartStatus}
+                setCountHeart={setCountHeart}
+                countHeart={countHeart}
+            />
 
 
             <hr/>

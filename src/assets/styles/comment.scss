@@ -1,14 +1,30 @@
 .comment {
-  min-height: 30px;
+  padding: 20px;
+  min-height: 64px;
   justify-content: space-between;
+  flex-direction: row;
   display: flex;
   align-items: center;
 
+  image {
+    padding: 4px;
+  }
+
   .info-section {
     display: flex;
-    align-items: center;
-    flex-direction: row;
+    //align-items: center;
+    flex-direction: column;
     gap: 8px;
+
+    .nickname {
+      font-weight: 600;
+
+      //font-size: 1.25rem;
+    }
+
+    .modified-time {
+      color: var(--alpha-30)
+    }
 
 
     .commentImg {
@@ -23,6 +39,15 @@
     float: right;
     display: flex;
     flex-direction: row;
+
+    gap: 8px;
+
+    button {
+      background: none;
+      border: none;
+      gap: 2px;
+
+    }
   }
 
 

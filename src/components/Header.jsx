@@ -2,8 +2,14 @@ import "../assets/styles/header.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Category from "../pages/Category";
-import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {
+    faArrowRightFromBracket,
+    faArrowRightToBracket,
+    faChevronDown,
+    faUserPlus
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faUser} from "@fortawesome/free-regular-svg-icons";
 
 const Header = (props) => {
 
@@ -79,11 +85,15 @@ const Header = (props) => {
 
                         <div className="headerRegisterContainer" onMouseEnter={leaveHeader}>
                             {isAuth ? <>
-                                    <Link to="/mypage">마이페이지</Link>
-                                    <button className={"logout"} onClick={handleLogout}>로그아웃</button>
+                                    <Link to="/mypage"><FontAwesomeIcon icon={faUser}/> </Link>
+                                    <button className={"logout"} onClick={handleLogout}>로그아웃
+                                        <FontAwesomeIcon icon={faArrowRightFromBracket}/>
+                                    </button>
                                 </>
-                                : <><Link to="/join">회원가입</Link>
-                                    <Link to="/login">로그인</Link></>}
+                                : <><Link to="/join" className={"logout"}>
+                                    <FontAwesomeIcon icon={faUserPlus}/>회원가입</Link>
+                                    <Link to="/login" className={"logout"}> <FontAwesomeIcon
+                                        icon={faArrowRightToBracket}/> 로그인</Link></>}
 
                         </div>
                     </div>
