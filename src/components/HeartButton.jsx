@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import instance from './axios.jsx';
+import '../assets/styles/heartButton.scss'
 
 export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart, countHeart }) {
     const { post_id } = useParams();
@@ -35,7 +36,7 @@ export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart
     };
 
     return (
-        <button onClick={handleButtonClick}>
+        <button className="heart-button" onClick={handleButtonClick}>
             {heartStatus ? '추천취소' : '추천'}
         </button>
     );
