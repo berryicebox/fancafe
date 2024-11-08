@@ -1,0 +1,23 @@
+.content-info-container {
+  display: flex;
+  justify-content: space-between;
+
+  .content-info {
+    h2 {
+      font-size: 3rem;
+    }
+
+  }
+
+  .content-author-info {
+
+  }
+
+  .content-modify-button {
+  }
+}
+
+.view-content {
+  min-height: 150px;
+
+}
