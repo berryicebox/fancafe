@@ -78,7 +78,7 @@ const Comment = ({parentList, comment, commentSummited, setCommentSummited}) => 
 
 
                 <div className={"edit-section"}>
-                    <button onClick={() => setReply(true)}><FontAwesomeIcon icon={faReply}/>댓글작성</button>
+                    <button onClick={() => setReply(!reply)}><FontAwesomeIcon icon={faReply}/>댓글작성</button>
                     {isAuth ?
                         (<>
                             <button onClick={() => setEdit(true)}><FontAwesomeIcon icon={faPenToSquare}/>수정</button>

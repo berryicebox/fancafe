@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import "../assets/styles/commentEditor.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faImage} from "@fortawesome/free-solid-svg-icons";
+import {faImage, faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 
 const CommentEditor = (props) => {
 
@@ -115,7 +115,13 @@ const CommentEditor = (props) => {
                     </form>
 
                 ) : (<div className={"go-login"}>먼저 로그인 해주세요
-                    <Link to="/login">로그인</Link>
+                    <Link to="/login">
+                        <div className="go-login-button">
+                            <div>
+                            <FontAwesomeIcon icon={faArrowRightToBracket}/>로그인
+                            </div>
+                        </div>
+                    </Link>
                 </div>)
             }
         </>
