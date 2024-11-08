@@ -8,10 +8,16 @@ import {useModifyTime} from '../utils/useModifyTime.jsx';
 import "../assets/styles/contentViewer.scss"
 
 const ContentsViewer = ({props}) => {
+
+
     const {category, post_id} = useParams();
     const [contentInfo, setContentInfo] = useState(null);
     const [isAuth, setIsAuth] = useState(false);
+    const [heartStatus, setHeartStatus] = useState(contentInfo?.heart);
+    const [countHeart, setCountHeart] = useState(contentInfo?.count_heart);
     const modifiedTime = useModifyTime(contentInfo?.createdDate);
+
+    // let heartStatus = contentInfo?.heart;
 
     useEffect(() => {
         instance({
@@ -20,6 +26,8 @@ const ContentsViewer = ({props}) => {
         })
             .then(response => {
                 setContentInfo(response.data)
+                setHeartStatus(response.data.heart)
+                setCountHeart(response.data.count_heart)
             })
             .catch(error => console.error(error));
 
@@ -43,6 +51,7 @@ const ContentsViewer = ({props}) => {
     if (!contentInfo) {
         return (<p>데이터가 없습니다</p>)
     }
+
 
     console.log('데이터: ', contentInfo);
 
@@ -83,7 +92,16 @@ const ContentsViewer = ({props}) => {
                 </div>
 
 
+
             </div>
+
+
+        <HeartButton
+            heartStatus={heartStatus}
+            setHeartStatus={setHeartStatus}
+            setCountHeart={setCountHeart}
+            countHeart={countHeart}
+        />
 
             <hr/>
 
@@ -94,6 +112,7 @@ const ContentsViewer = ({props}) => {
             </div>
 
             <HeartButton/>
+
 
             <hr/>
             <Comments/>

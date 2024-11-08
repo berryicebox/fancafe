@@ -1,42 +1,42 @@
 import { useParams } from 'react-router-dom';
 import instance from './axios.jsx';
-import { useEffect, useState } from 'react';
 
-export default function HeartButton({props}){
+export default function HeartButton({ heartStatus, setHeartStatus, setCountHeart, countHeart }) {
     const { post_id } = useParams();
-    const [isHeart, setIsHeart] = useState(true);
+    const haveToken = localStorage.getItem('accessToken');
 
-    // useEffect(() => {
-    //     if(!isHeart){
-    //         console.log("확인 코드: ", isHeart)
+    function handleAlertLogin() {
+        if (haveToken === null) {
+            alert('로그인 하세요');
+        }
+    }
 
-    //         instance({
-    //             method: "GET",
-    //             url: `/heart/add/${post_id}`
-    //         })
-    //             .then(response => {
-    //                 console.log(response.data)
-    //             })
-    //             .catch(error => console.error(error));
-    //     }
-    //     else {
-    //         console.log("확인 코드: ", isHeart)
+    function handleUpDownHeart(){
+        if (haveToken === null) return;
 
-    //         instance({
-    //             method: "GET",
-    //             url: `/heart/delete/${post_id}`
-    //         })
-    //             .then(response => {
-    //                 console.log(response.data)
-    //             })
-    //             .catch(error => console.error(error));
-    //     }
-    // }, [isHeart, post_id])
+        const url = heartStatus ? `/heart/delete/${post_id}` : `/heart/add/${post_id}`;
+        const successMessage = heartStatus ? '추천 취소 했습니다' : '추천 했습니다';
+
+        instance({
+            method: "GET",
+            url: url
+        })
+        .then(response => {
+            setHeartStatus(!heartStatus);
+            setCountHeart(countHeart + (heartStatus ? -1 : 1));
+            alert(successMessage);
+        })
+        .catch(error => console.error(error));
+    }
+
+    const handleButtonClick = () => {
+        handleAlertLogin();
+        handleUpDownHeart();
+    };
 
     return (
-        <>
-            <button onClick={() => setIsHeart(prevIsHeart => !prevIsHeart)}>추천</button>
-            <p>테스트: {isHeart ? '추천 취소' : '추천'}</p>
-        </>
-    )
+        <button onClick={handleButtonClick}>
+            {heartStatus ? '추천취소' : '추천'}
+        </button>
+    );
 }
