@@ -13,7 +13,7 @@ export default function PostWrite(props) {
 
     const [title, setTitle] = useState('');
     // 카테고리 선택 최상단에 자유가 있으므로 디폴트 값으로 자유
-    const [category, setCategory] = useState('자유');
+    const [category, setCategory] = useState('free');
     const [isEdit, setIsEdit] = useState(false);
 
 

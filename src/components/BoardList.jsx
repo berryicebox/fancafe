@@ -4,6 +4,7 @@ import Pagination from "./Pagination";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
+import DataNotExist from "./DataNotExist";
 
 const BoardList = (props) => {
 
@@ -35,7 +36,7 @@ const BoardList = (props) => {
             method: "GET",
 
         }).then((response) => {
-            // console.log(response.data)
+            console.log(response.data)
             setData(response.data);
             setLoading(false);
             // console.log(response.data.total);
@@ -69,7 +70,8 @@ const BoardList = (props) => {
                 );
             })}
             {props.isAuth ? <WriteButton/> : null}
-            {data && <Pagination
+            {data.totalCount == 0 && <DataNotExist/>}
+            {data && data.totalCount >= 10 && <Pagination
                 totalPost={data.totalCount}
                 currentPage={currentPage}
                 handlePageChange={handlePageChange}/>

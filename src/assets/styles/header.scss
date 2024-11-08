@@ -2,13 +2,11 @@ $logo-suit-margin: 1.6rem;
 
 
 .headerContainer {
-  * {
-    color: var(--header-font-color);
-  }
+
 
   width: 100%;
   background-color: var(--point-color);
-  color: var(--body-background-color);
+  color: var(--header-font-color);
   display: flex;
   justify-content: center;
   height: 76px;
@@ -25,6 +23,7 @@ $logo-suit-margin: 1.6rem;
     width: var(--site-width);
 
     h1 {
+      color: var(--header-font-color);
 
       font-size: 1.5rem;
       font-weight: bold;
@@ -96,16 +95,44 @@ $logo-suit-margin: 1.6rem;
   }
 
   .headerRegisterContainer {
+    text-align: center;
+    align-items: center;
     display: flex;
     gap: var(--banner-gap);
 
+    a {
+      font-size: 1.3rem;
+      color: var(--header-font-color);
+      background: var(--body-background-color-30);
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 20px/20px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+
+
+    }
+
     //margin-top: 1rem;
     .logout {
-      font-size: 1.1rem;
+      color: var(--header-font-color);
+      font-size: 0.9rem;
 
       padding: 0;
       border: none;
       background: none;
+
+      width: 100px;
+      height: 2.5rem;
+      border-radius: 20px/20px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      color: var(--header-font-color);
+      background: var(--body-background-color-30);
+      gap: 4px;
+
     }
 
     p, link {

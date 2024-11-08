@@ -92,6 +92,7 @@ const ContentsViewer = ({props}) => {
                     </>) : null}
                     <button>공유</button>
                 </div>
+ 
             </div>
 
             <hr/>
@@ -101,6 +102,7 @@ const ContentsViewer = ({props}) => {
                     initialValue={contentInfo.contents}
                 />
             </div>
+ 
 
             <div className="heart-button-container">
                 <HeartButton
@@ -110,6 +112,7 @@ const ContentsViewer = ({props}) => {
                     countHeart={countHeart}
                 />
             </div>
+ 
 
             <hr/>
             <Comments/>

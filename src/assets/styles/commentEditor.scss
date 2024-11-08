@@ -1,4 +1,6 @@
 .input-comment {
+  //margin: 20px;
+  
   background: var(--sercondary-background-color);
   width: 100%;
   display: flex;
@@ -9,8 +11,9 @@
 
 
   textArea {
+    padding: 20px;
     border-radius: 10px/10px;
-
+    font-size: 1rem;
     background: var(--sercondary-background-color);
     border: 0px solid var(--sercondary-color);
     resize: none;
