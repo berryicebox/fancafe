@@ -1,15 +1,15 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "../pages/Home";
-import Join from "../pages/Join";
-import Login from "../pages/Login";
-import PostWrite from "../pages/PostWrite";
-import JoinSuccess from "../pages/JoinSuccess";
-import "../assets/styles/router.scss";
-import MyPage from "../pages/MyPage";
-import ContentsViewer from "./ContentsViewer";
-import Search from "../pages/Search";
+import Home from "../../pages/Home";
+import Join from "../../pages/Join";
+import Login from "../../pages/Login";
+import PostWrite from "../../pages/PostWrite";
+import JoinSuccess from "../../pages/JoinSuccess";
+import "../../assets/styles/layout/router.scss";
+import MyPage from "../../pages/MyPage";
+import ContentsViewer from "../board/ContentsViewer";
+import Search from "../../pages/Search";
 
 const Router = (props) => {
     return (

@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useRef, useState} from "react"
-import WriteEditor from "../components/WriteEditor"
-import '../assets/styles/postWrite.scss'
+import WriteEditor from "../components/board/WriteEditor"
+import '../assets/styles/board/postWrite.scss'
 import {useLocation, useNavigate} from "react-router-dom";
-import instance from "../components/axios";
+import instance from "../utils/axios";
 
 
 export default function PostWrite(props) {
@@ -19,10 +19,8 @@ export default function PostWrite(props) {
 
     useEffect(() => {
         if (state) {
-
             console.log("수정");
             console.log(state);
-
             setIsEdit(true);
             setTitle(state.title);
             setCategory(state.category);
@@ -60,8 +58,6 @@ export default function PostWrite(props) {
                 "contents": markdown,
                 "category": category
             }
-
-
             instance({
                 method: method,
                 url: url,

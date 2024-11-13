@@ -27,9 +27,6 @@
       margin-right: 0.5rem;
     }
 
-    .faFaceGrinTears {
-      margin-right: 0.3rem;
-    }
 
     .hearts {
       font-weight: bold;
@@ -44,19 +41,19 @@
 
   .content-modify-button {
 
-    
-    button{
+
+    button {
       border: 3px solid transparent;
 
       padding: 0.3rem;
 
       background-color: transparent;
 
-      :first-child{
+      :first-child {
         margin-right: 0.3rem;
       }
 
-      .fa-xmark{
+      .fa-xmark {
         margin-right: 0.5rem;
       }
     }

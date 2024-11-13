@@ -1,4 +1,4 @@
-import "../assets/styles/login.scss";
+import "../assets/styles/layout/login.scss";
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";

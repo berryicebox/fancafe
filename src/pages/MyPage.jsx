@@ -1,8 +1,8 @@
 import {faUserPen} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import "../assets/styles/mypage.scss"
+import "../assets/styles/layout/mypage.scss"
 import {useEffect, useState} from "react";
-import instance from "../components/axios";
+import instance from "../utils/axios";
 import {useNavigate} from "react-router-dom";
 
 function MyPage(props) {

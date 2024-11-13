@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
-import instance from './axios.jsx';
-import '../assets/styles/heartButton.scss'
+import instance from '../../utils/axios.jsx';
+import '../../assets/styles/board/heartButton.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faHeartCrack} from "@fortawesome/free-solid-svg-icons";
 

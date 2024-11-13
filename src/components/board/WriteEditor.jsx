@@ -30,11 +30,9 @@ const WriteEditor = forwardRef((props, ref) => {
                 console.log(error)
             })
 
-
         } catch (error) {
             console.error(error);
         }
-
 
     };
 

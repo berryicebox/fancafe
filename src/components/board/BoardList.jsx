@@ -4,7 +4,7 @@ import Pagination from "./Pagination";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import DataNotExist from "./DataNotExist";
+import DataNotExist from "../layout/DataNotExist";
 
 const BoardList = (props) => {
 

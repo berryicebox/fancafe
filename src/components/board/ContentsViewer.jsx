@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import instance from './axios.jsx'
+import instance from '../../utils/axios.jsx'
 import {Viewer} from '@toast-ui/react-editor';
 import HeartButton from './HeartButton.jsx';
-import Comments from "./Comments";
-import {useModifyTime} from '../utils/useModifyTime.jsx';
+import Comments from "../comment/Comments";
+import {useModifyTime} from '../../utils/useModifyTime.jsx';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFaceGrinTears, faPenToSquare} from "@fortawesome/free-regular-svg-icons";
 import {faShare, faXmark} from "@fortawesome/free-solid-svg-icons";
-import "../assets/styles/contentViewer.scss"
+import "../../assets/styles/board/contentViewer.scss"
 
 const ContentsViewer = ({props}) => {
 
@@ -75,25 +75,27 @@ const ContentsViewer = ({props}) => {
         <div>
             <div className="content-info-container">
                 <div className="info-box">
-                        <div className="content-info">
-                            <h2> {contentInfo.category}</h2>
-                            <h1> {contentInfo.title}</h1>
-                        </div>
-                        <div className="content-author-info">
-                            <span className="user-name">{contentInfo.nickname}{" "}</span>
-                            <FontAwesomeIcon icon={faFaceGrinTears} className="faFaceGrinTears"/><span className="hearts">{countHeart}</span>
-                            <span className="modified-time"> {modifiedTime}{" "}·{" "}</span>
-                            <span className="hits">조회 {contentInfo.hits}</span>
-                        </div>
+                    <div className="content-info">
+                        <h2> {contentInfo.category}</h2>
+                        <h1> {contentInfo.title}</h1>
+                    </div>
+                    <div className="content-author-info">
+                        <span className="user-name">{contentInfo.nickname}{" "}</span>
+                        <FontAwesomeIcon icon={faFaceGrinTears} className="faFaceGrinTears"/><span
+                        className="hearts">{countHeart}</span>
+                        <span className="modified-time"> {modifiedTime}{" "}·{" "}</span>
+                        <span className="hits">조회 {contentInfo.hits}</span>
+                    </div>
                 </div>
                 <div className="content-modify-button">
                     {isAuth ? (<>
                         <button onClick={editHandler}><FontAwesomeIcon icon={faPenToSquare}/>수정</button>
-                        <button onClick={deleteHandler}><FontAwesomeIcon className="fa-xmark" icon={faXmark}/>삭제</button>
+                        <button onClick={deleteHandler}><FontAwesomeIcon className="fa-xmark" icon={faXmark}/>삭제
+                        </button>
                     </>) : null}
-                    <button><FontAwesomeIcon icon={faShare} />공유</button>
+                    <button><FontAwesomeIcon icon={faShare}/>공유</button>
                 </div>
- 
+
             </div>
 
             <hr/>
@@ -103,7 +105,7 @@ const ContentsViewer = ({props}) => {
                     initialValue={contentInfo.contents}
                 />
             </div>
- 
+
 
             <div className="heart-button-container">
                 <HeartButton
@@ -113,7 +115,7 @@ const ContentsViewer = ({props}) => {
                     countHeart={countHeart}
                 />
             </div>
- 
+
 
             <hr/>
             <Comments/>

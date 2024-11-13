@@ -1,7 +1,7 @@
 import "../src/assets/styles/setting.css";
 import "../src/assets/styles/reset.css";
 import {QueryClient, QueryClientProvider} from "react-query";
-import Router from "./components/Router";
+import Router from "./components/layout/Router";
 import {useEffect, useState} from "react";
 
 function App() {

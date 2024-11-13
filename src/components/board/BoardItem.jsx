@@ -1,8 +1,8 @@
-import "../assets/styles/board.scss"
+import "../../assets/styles/board/board.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faHeart} from "@fortawesome/free-regular-svg-icons";
 import {Link} from "react-router-dom";
-import {useModifyTime} from "../utils/useModifyTime";
+import {useModifyTime} from "../../utils/useModifyTime";
 
 const BoardItem = ({data}) => {
     const modifiedTime = useModifyTime(data.createdDate)

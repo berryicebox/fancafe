@@ -1,9 +1,9 @@
-import instance from "./axios";
+import instance from "../../utils/axios";
 import {useEffect, useRef, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import "../assets/styles/commentEditor.scss";
+import "../../assets/styles/comment/commentEditor.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faImage, faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faImage} from "@fortawesome/free-solid-svg-icons";
 
 const CommentEditor = (props) => {
 
@@ -118,7 +118,7 @@ const CommentEditor = (props) => {
                     <Link to="/login">
                         <div className="go-login-button">
                             <div>
-                            <FontAwesomeIcon icon={faArrowRightToBracket}/>로그인
+                                <FontAwesomeIcon icon={faArrowRightToBracket}/>로그인
                             </div>
                         </div>
                     </Link>

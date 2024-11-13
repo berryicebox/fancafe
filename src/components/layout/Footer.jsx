@@ -1,4 +1,4 @@
-import '../assets/styles/footer.scss'
+import '../../assets/styles/layout/footer.scss'
 
 const Footer = ({props}) => {
 

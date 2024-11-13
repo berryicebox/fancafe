@@ -1,4 +1,4 @@
-import "../assets/styles/dataNotExist.scss";
+import "../../assets/styles/layout/dataNotExist.scss";
 import {faFolderOpen} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 

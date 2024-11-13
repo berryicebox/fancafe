@@ -1,7 +1,7 @@
-import "../assets/styles/header.scss";
+import "../../assets/styles/layout/header.scss";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import Category from "../pages/Category";
+import Category from "../../pages/Category";
 import {
     faArrowRightFromBracket,
     faArrowRightToBracket,
@@ -56,7 +56,7 @@ const Header = (props) => {
                 <div className="headerContainer">
                     <div className="headerContentsContainer">
                         <div className="headerLnCContainer">
-                            <Link to="/"><h1 className="logo" onMouseEnter={leaveHeader}>FanCafe</h1></Link>
+                            <Link to="/public"><h1 className="logo" onMouseEnter={leaveHeader}>FanCafe</h1></Link>
                             <ul className="headerCatecoryContainer">
                                 <Link onMouseEnter={leaveHeader} to="/best">
                                     <li>인기글</li>

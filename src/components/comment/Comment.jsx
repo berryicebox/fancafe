@@ -1,8 +1,8 @@
-import "../assets/styles/comment.scss"
+import "../../assets/styles/comment/comment.scss"
 import {useEffect, useState} from "react";
 import CommentEditor from "./CommentEditor";
-import instance from "./axios";
-import {useModifyTime} from "../utils/useModifyTime";
+import instance from "../../utils/axios";
+import {useModifyTime} from "../../utils/useModifyTime";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faReply, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";

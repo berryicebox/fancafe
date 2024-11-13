@@ -1,4 +1,4 @@
-import "../assets/styles/pagination.scss";
+import "../../assets/styles/board/pagination.scss";
 import {useEffect, useState} from "react";
 
 const Pagination = ({currentPage, totalPost, handlePageChange}) => {
